@@ -4,7 +4,7 @@ var current_term_line = "";
 
 var term = new window.Terminal.Terminal();
     term.open(document.getElementById('terminal'));
-    term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ')
+    term.write('Hello from \x1B[1;3;31mRC3MUD\x1B[0m $ ')
     
     term.onData(e => {
   switch (e) {
@@ -39,34 +39,24 @@ ws.onopen = function() {
 
 ws.onerror = function() {
 	console.log("ws onerror");
+	
 };
 
 ws.onclose = function() {
 	console.log("ws onclose");
+	term.write('\r\n\x1B[1;3;31mConnection lost...\x1B[0m');
 };
 
-var nextMessageIsBinary = false;
 ws.onmessage = function (message) {
 	console.log("ws: "+message.data);
-	if (nextMessageIsBinary===false) {
-		var msg = JSON.parse(message.data);
-		if (msg.binary==true) {
-			nextMessageIsBinary = msg;
-			return;
-		}
-		if (msg.cmd=="text") {
-			term.write(msg.data+'\r\n$ ');
-		}
-	} else {
-		if (nextMessageIsBinary.cmd=="liveimage") {
-			loadMessageIntoCanvas(message, nextMessageIsBinary, document.querySelector('#imageCanvas'),false);
-			nextMessageIsBinary = false;
-			if (doLiveUpdate) {
-				requestImage(currentImageType);
-			}
-			return;
-		}
+	
+	var msg = JSON.parse(message.data);
+	
+	if (msg.cmd=="text") {
+		term.write('\b\b');
+		term.write(msg.data+'\r\n$ ');
 	}
+	
 }
 
 		

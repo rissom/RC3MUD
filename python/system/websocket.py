@@ -3,6 +3,7 @@ import json
 import datetime
 from system.log import log
 from system.webserver import Webserver
+from game.player import Player
 
 class Websocket(tornado.websocket.WebSocketHandler):
     
@@ -29,6 +30,7 @@ class Websocket(tornado.websocket.WebSocketHandler):
         print("WebSocket opened")
         self.nextIsBinary = None
         Websocket.websocket_clients.append(self)
+        self.player = Player()
         
         ans = {
               "cmd": "version"
@@ -47,11 +49,7 @@ class Websocket(tornado.websocket.WebSocketHandler):
             }
             self.write_message(json.dumps(ans))
         elif jsonmsg['cmd']=='user':
-            ans = {
-                'cmd': 'text',
-                'data': "what do yo mean with '"+jsonmsg['data']+"'"
-            }
-            self.write_message(json.dumps(ans))
+            self.player.parse_user_command(self, jsonmsg['data'])
         
             
     def on_close(self):
