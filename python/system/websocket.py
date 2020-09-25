@@ -8,9 +8,8 @@ class Websocket(tornado.websocket.WebSocketHandler):
     
     websocket_send_data = []
     websocket_clients = []
-    instance = None
     
-    def websocket_send(client,data,binary):
+    def websocket_send(client,data,binary=False):
         Websocket.websocket_send_data.append([client,data,binary])
         Webserver.main_loop.add_callback(Websocket.send_to_socket)
         
@@ -30,25 +29,14 @@ class Websocket(tornado.websocket.WebSocketHandler):
         print("WebSocket opened")
         self.nextIsBinary = None
         Websocket.websocket_clients.append(self)
-        Websocket.instance = self
         
         ans = {
               "cmd": "version"
             }
         self.write_message(json.dumps(ans)) # hier ok!
-        #WebServer.websocket_send(self,json.dumps(ans),False)
+        #Websocket.websocket_send(self,json.dumps(ans),False)
                  
     def on_message(self, message):
-        # process binary messages
-        if self.nextIsBinary is not None:
-            if self.nextIsBinary['cmd']=="send avatar":
-                #m = np.array(bytearray(message), dtype=np.uint8)
-                self.nextIsBinary = None
-                return
-            log.warn("webserver: unhandled binary message!")
-            self.nextIsBinary = None
-            return
-        
         # process json messages
         jsonmsg = json.loads(message)
         log.debug("Websocket: received message: "+str(jsonmsg))
@@ -57,15 +45,13 @@ class Websocket(tornado.websocket.WebSocketHandler):
             ans = {
               "cmd": "pong",
             }
-            #self.write_message(json.dumps(ans))
-            Websocket.websocket_send(self,json.dumps(ans),False)
+            self.write_message(json.dumps(ans))
         elif jsonmsg['cmd']=='user':
             ans = {
                 'cmd': 'text',
                 'data': "what do yo mean with '"+jsonmsg['data']+"'"
             }
-            #self.write_message(json.dumps(ans))
-            Websocket.websocket_send(self,json.dumps(ans),False)
+            self.write_message(json.dumps(ans))
         
             
     def on_close(self):
