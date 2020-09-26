@@ -19,8 +19,7 @@ class LogStream(object):
         with self.logbuf_lock:
             if len(data) > 1:
                 self.logbuf.append(data)
-
-        return sys.stderr.write(data)
+        return sys.stdout.write(data)
 
     def get(self, nmax=None, remove=False):
         if nmax is None:
@@ -92,7 +91,7 @@ class LogFile(object):
 #TODO: do not flush ervery time??!!
         #self.logfile.flush()
         
-        return sys.stderr.write(data)
+        #return sys.stderr.write(data)
 
     def get(self, nmax=None, remove=False):
         if nmax is None:
@@ -128,19 +127,22 @@ class LogFile(object):
 
     def flush(self):
         #self.logfile.flush()
-        return sys.stderr.flush()
+        return sys.stdout.flush()
 
 
-logstreambuf = LogStream()
+
+
 #logfilebuf = LogFile()
 
-log = logging.getLogger("somelog")
-log.setLevel(logging.DEBUG)
+log = logging.getLogger("rc3mudlog")
 
-formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-
-#handler = logging.StreamHandler(logfilebuf)
-handler = logging.StreamHandler(logstreambuf)
-handler.setFormatter(formatter)
-
-log.addHandler(handler)
+if not log.handlers:
+    log.propagate = False
+    formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+    logstreambuf = LogStream()
+    #handler = logging.StreamHandler(logfilebuf)
+    handler = logging.StreamHandler(logstreambuf)
+    handler.setFormatter(formatter)
+    
+    log.addHandler(handler)
+    log.setLevel(logging.DEBUG)

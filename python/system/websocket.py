@@ -27,7 +27,7 @@ class Websocket(tornado.websocket.WebSocketHandler):
 
 
     def open(self):
-        print("WebSocket opened")
+        log.debug("WebSocket opened")
         self.nextIsBinary = None
         Websocket.websocket_clients.append(self)
         self.player = Player(self)
