@@ -7,14 +7,15 @@ class Player(object):
     def __init__(self, wsclient):
         self.wsclient = wsclient
         self.name = "Bernd"
-        self.room = None
+        self.room = Room.get_room_by_id(1)
         self.lang = "en"
         
         self.enter_room(1)
         
     def enter_room(self, roomid):
         newroom = Room.get_room_by_id(roomid)
-        
+        self.room.player_leaves_room(self)
+        newroom.player_enters_room(self)
         if len(newroom.actions) == 0:
             actionsstring = "There is nothing you can do here, sorry..."
         else:
