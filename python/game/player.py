@@ -19,13 +19,19 @@ class Player(object):
         
         self.enter_room(1)
     
+    def send_text(self, text):
+        ans = {
+              "cmd": "text",
+              "data": text
+            }
+        try:
+            self.wsclient.write_message(ans)
+        except tornado.websocket.WebSocketClosedError:
+            Websocket.websocket_clients.remove(self.wsclient)
+            
     def action_say(self,a,msg):
         for p in self.room.player:
-            ans = {
-              "cmd": "text",
-              "data": "\r\n"+self.name+" "+i18n(p.lang,a['description'])+" '"+msg[ len(i18n(self.lang,a['command']))+1:]+"'"
-            }
-            p.wsclient.write_message(ans)
+            p.send_text("\r\n"+self.name+" "+i18n(p.lang,a['description'])+" '"+msg[ len(i18n(self.lang,a['command']))+1:]+"'")
             
     def enter_room(self, roomid):
         newroom = Room.get_room_by_id(roomid)
@@ -38,11 +44,7 @@ class Player(object):
             for a in newroom.actions:
                 actionsstring = actionsstring + i18n(self.lang, a['description'])+"\r\n"
                 
-        ans = {
-              "cmd": "text",
-              "data": "\r\n\r\n"+i18n(self.lang,newroom.description)+"\r\n"+actionsstring
-            }
-        self.wsclient.write_message(ans)
+        self.send_text("\r\n\r\n"+i18n(self.lang,newroom.description)+"\r\n"+actionsstring)
         ans = {
               "cmd": "html",
               "data": i18n(self.lang,newroom.webview)
@@ -59,33 +61,17 @@ class Player(object):
                 answered = True
 
         if msg.startswith("whoami"):
-            ans = {
-              "cmd": "text",
-              "data": "You are "+self.name
-            }
-            self.wsclient.write_message(json.dumps(ans))
+            self.send_text("You are "+self.name)
             answered = True
         elif msg.startswith("sleep"):
-            ans = {
-              "cmd": "text",
-              "data": "You feel refreshed"
-            }
-            self.wsclient.write_message(json.dumps(ans))
+            self.send_text("You feel refreshed")
             answered = True
         elif msg.startswith("room2json"):
-            ans = {
-              "cmd": "text",
-              "data": self.room.toJSON()
-            }
-            self.wsclient.write_message(json.dumps(ans))
+            self.send_text(self.room.toJSON())
             answered = True
         
         if not answered:
             answered = self.room.parse_user_command(self, msg)
         if not answered:
-            ans = {
-              "cmd": "text",
-              "data": "What you mean by '"+msg+"'"
-            }
-            self.wsclient.write_message(json.dumps(ans))
+            self.send_text("What you mean by '"+msg+"'")
             
