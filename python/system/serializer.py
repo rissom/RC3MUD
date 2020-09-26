@@ -10,7 +10,7 @@ class Serializer(object):
         filename = Config.workingpath+"/rooms/" + str(roomid)+".json"
         if not os.path.exists(filename):
             log.error("Serializer: room does not exists: id: "+str(roomid)+" "+filename)
-            return None
+            return Room(roomid)
         roomfile = open(filename, 'r')
         filecontent = roomfile.read()
         jsonobj = json.loads(filecontent)

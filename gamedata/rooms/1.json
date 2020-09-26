@@ -1,1 +1,3 @@
-{"roomid": 1, "description": "You are in a deserialized space now!"}
+{
+	"roomid": 1, "description": "You are in a deserialized space now!",
+	"exits" : [  ] }
