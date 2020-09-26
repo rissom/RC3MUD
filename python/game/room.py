@@ -3,6 +3,7 @@ from system.serializer import Serializer
 from system.log import log
 from system.helper import i18n
 
+
 class Room(object):
     
     all_rooms = []
@@ -36,17 +37,19 @@ class Room(object):
         if player in self.player:
             self.player.remove(player)
         for p in self.player:
-            ans = { "cmd" : "text",
-                    "data" :i18n(p.lang,{ "en": ""+p.name+" leaves the room..." } )
-                    }
-            p.wsclient.write_message(ans)
+            p.send_text(i18n(p.lang,{ "en": ""+p.name+" leaves the room..." } ))
+    
+    def get_room_command_list(self,player):
+        commands = []
+        for a in self.actions:
+            commands.append(i18n(player.lang,a['command']))
+        return commands
+                
     def player_enters_room(self,player):
         for p in self.player:
-            ans = { "cmd" : "text",
-                    "data" :i18n(p.lang,{ "en": ""+p.name+" enters the room..." } )
-                    }
-            p.wsclient.write_message(ans)
+            p.send_text(i18n(p.lang,{ "en": ""+p.name+" enters the room..." }))
         self.player.append(player)
+        
     def execute_action(self,player,action):
         if 'roomid' in action:
             player.enter_room(action['roomid'])

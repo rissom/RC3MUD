@@ -43,6 +43,19 @@ class Player(object):
             p.send_text("\r\n"+self.name+" "+i18n(p.lang,a['description'])+" '"+newname+"'")
         self.name = newname
        
+    def send_player_new_command_list(self):
+        commands = []
+        for a in Player.actions:
+            commands.append(i18n(self.lang,a['command']))
+        ans = { "cmd" : "newcommandlist",
+                "type":"player",
+                "data" : commands}
+        self.wsclient.write_message(ans)
+        commands = self.room.get_room_command_list(self)
+        ans = { "cmd" : "addcommandlist",
+                "type": "room",
+                "data" : commands}
+        self.wsclient.write_message(ans)
     def enter_room(self, roomid):
         newroom = Room.get_room_by_id(roomid)
         self.room.player_leaves_room(self)
@@ -61,6 +74,7 @@ class Player(object):
             }
         self.wsclient.write_message(ans)
         self.room = newroom
+        self.send_player_new_command_list()
         
     def parse_user_command(self, msg):
         answered = False
