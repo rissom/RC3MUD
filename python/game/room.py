@@ -75,6 +75,6 @@ class Room(object):
                "capacity" : self.capacity,
                "webview" : self.webview
              }
-        return json.dumps(ans)
+        return json.dumps(ans,indent=4).replace('\n', '\r\n')
     
     
