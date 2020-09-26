@@ -2,6 +2,7 @@ import json
 import string
 from game.room import Room
 from system.helper import i18n
+import tornado
 
 class Player(object):
     
@@ -12,6 +13,14 @@ class Player(object):
                 { "command": { "de": "umbenennen"  , "en": "rename" } ,
                  "function" : "action_rename",
                 "description":  { "de": "heisst jetzt", "en": "is now known as" }
+                },
+                { "command": { "de": "wer bin ich"  , "en": "whoami" } ,
+                 "function" : "action_whoami",
+                "description":  { "de": "heisst jetzt", "en": "is now known as" }
+                },
+                { "command": {  "en": "room2json" } ,
+                 "function" : "action_room2json",
+                "description":  { "en": "" }
                 }
               ]
     
@@ -33,16 +42,26 @@ class Player(object):
         except tornado.websocket.WebSocketClosedError:
             Websocket.websocket_clients.remove(self.wsclient)
             
+    def action_room2json(self,a,msg):
+        self.send_text(self.room.toJSON())
+ 
     def action_say(self,a,msg):
         for p in self.room.player:
             p.send_text("\r\n"+self.name+" "+i18n(p.lang,a['description'])+" '"+msg[ len(i18n(self.lang,a['command']))+1:]+"'")
     
     def action_rename(self,a,msg):
         newname = msg[ len(i18n(self.lang,a['command']))+1:]
+        if len(newname)<3:
+            self.send_text(i18n(self.lang,{ "en":"Thats to short...", "de": "Das ist zu kurz..."}))
+            return
+        
         for p in self.room.player:
             p.send_text("\r\n"+self.name+" "+i18n(p.lang,a['description'])+" '"+newname+"'")
         self.name = newname
        
+    def action_whoami(self,a,msg):
+        self.send_text("You are "+self.name)
+        
     def send_player_new_command_list(self):
         commands = []
         for a in Player.actions:
@@ -84,15 +103,10 @@ class Player(object):
                 getattr(self,a['function'])(a,msg)
                 answered = True
 
-        if msg.startswith("whoami"):
-            self.send_text("You are "+self.name)
-            answered = True
-        elif msg.startswith("sleep"):
+        if msg.startswith("sleep"):
             self.send_text("You feel refreshed")
             answered = True
-        elif msg.startswith("room2json"):
-            self.send_text(self.room.toJSON())
-            answered = True
+        
         
         if not answered:
             answered = self.room.parse_user_command(self, msg)
