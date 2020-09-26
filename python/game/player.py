@@ -1,8 +1,8 @@
 import json
 import string
+import tornado
 from game.room import Room
 from system.helper import i18n
-import tornado
 
 class Player(object):
     
@@ -40,7 +40,11 @@ class Player(object):
         try:
             self.wsclient.write_message(ans)
         except tornado.websocket.WebSocketClosedError:
-            Websocket.websocket_clients.remove(self.wsclient)
+            from system.websocket import Websocket
+            try:
+                Websocket.websocket_clients.remove(self.wsclient)
+            except:
+                log.error("uuh, not in list, haeh?")
             
     def action_room2json(self,a,msg):
         self.send_text("\r\n"+self.room.toJSON())
