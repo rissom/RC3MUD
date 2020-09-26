@@ -13,8 +13,10 @@ var term = new window.Terminal.Terminal();
     term.onData(e => {
   switch (e) {
     case '\r': // Enter
-    	ws.send( JSON.stringify( { "cmd": "user", "data": current_term_line  } ));
-    	current_term_line = "";
+      if (current_term_line.length>0){
+    	  ws.send( JSON.stringify( { "cmd": "user", "data": current_term_line  } ));
+    	  current_term_line = "";
+      }
     case '\u0003': // Ctrl+C
       prompt(term);
       break;
@@ -28,7 +30,7 @@ var term = new window.Terminal.Terminal();
       possibleVerbs = actionList.filter ( y => y.startsWith( current_term_line ) );
       if ( possibleVerbs.length === 1 ){
         le = current_term_line.length;
-        current_term_line = possibleVerbs[0]; // add a space?
+        current_term_line = possibleVerbs[0] + " "; 
         term.write (current_term_line.slice(le));
       } else {
         if (current_term_line.length>0){
@@ -78,6 +80,16 @@ ws.onmessage = function (message) {
     var wv = document.querySelector("#webview");
     wv.innerHTML = msg.data;
     // '<iframe src="http://unidaplan.com/rocket.html" width=250 height="250"</iframe>'
+  }
+
+  if (msg.cmd=="newcommandlist"){
+    actionList = msg.data;
+    console.log (actionList);
+  }
+
+  if (msg.cmd=="addcommandlist"){
+    actionList = actionList.concat (msg.data);
+    console.log (actionList);
   }
 	
 }
