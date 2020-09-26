@@ -7,4 +7,3 @@ log.info("starting...")
 ws = Webserver()
 
 ws.run(port=Config.getSingleton().getInt("webserverport"))
-

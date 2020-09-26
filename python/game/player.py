@@ -3,6 +3,7 @@ import string
 import tornado
 from game.room import Room
 from system.helper import i18n
+from system.log import log
 
 class Player(object):
     

@@ -32,6 +32,7 @@
     "items": [],
     "capacity": -1,
     "webview": {
-        "en": "<b>Hier ist die HTML Beschreibung2</b>"
-    }
+        "en": "<img src='http://unidaplan.com/rocket.jpg' width='100%'>"
+    },
+    "videoview": { } 
 }
