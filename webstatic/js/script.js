@@ -5,6 +5,7 @@ var current_term_line = "";
 var term = new window.Terminal.Terminal();
     term.open(document.getElementById('terminal'));
     term.write('Welcome to the \x1B[1;3;31mRC3MUD\x1B[0m!\r\n');
+    term.focus();
     
     term.onData(e => {
   switch (e) {
