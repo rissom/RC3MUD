@@ -31,7 +31,8 @@ var term = new window.Terminal.Terminal();
         term.write (current_term_line.slice(le));
       } else {
           term.write ( "\r\n"+possibleVerbs .join(" ") + "\n\r");
-          term.write ( "$ " + current_term_line );
+          prompt(term)
+          term.write ( current_term_line );
       }
       break;
     default: // Print all other characters for demo
