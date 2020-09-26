@@ -4,7 +4,7 @@ import os
 
 class Config(object):
     singleton = None
-    workingpath = None
+    workingpath = "../gamedata"
     xmlconfig = None
     
     configdict = dict()

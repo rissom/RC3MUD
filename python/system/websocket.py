@@ -30,7 +30,7 @@ class Websocket(tornado.websocket.WebSocketHandler):
         print("WebSocket opened")
         self.nextIsBinary = None
         Websocket.websocket_clients.append(self)
-        self.player = Player()
+        self.player = Player(self)
         
         ans = {
               "cmd": "version"
@@ -49,7 +49,7 @@ class Websocket(tornado.websocket.WebSocketHandler):
             }
             self.write_message(json.dumps(ans))
         elif jsonmsg['cmd']=='user':
-            self.player.parse_user_command(self, jsonmsg['data'])
+            self.player.parse_user_command(jsonmsg['data'])
         
             
     def on_close(self):
