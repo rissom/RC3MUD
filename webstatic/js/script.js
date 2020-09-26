@@ -56,6 +56,12 @@ ws.onmessage = function (message) {
 		term.write('\b\b');
 		term.write(msg.data+'\r\n$ ');
 	}
+
+  if (msg.cmd=="html"){
+    var wv = document.querySelector("#webview");
+    wv.innerHTML = msg.data;
+    // '<iframe src="http://unidaplan.com/rocket.html" width=250 height="250"</iframe>'
+  }
 	
 }
 
