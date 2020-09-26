@@ -14,6 +14,7 @@ var term = new window.Terminal.Terminal();
     	  ws.send( JSON.stringify( { "cmd": "user", "data": current_term_line  } ));
     	  current_term_line = "";
       }
+      break;
     case '\u0003': // Ctrl+C
       prompt(term);
       break;
@@ -23,6 +24,7 @@ var term = new window.Terminal.Terminal();
         term.write('\b \b');
         current_term_line = current_term_line.slice(0,-1);
       }
+      break;
     case '\t':
       possibleVerbs = actionList.filter ( y => y.startsWith( current_term_line ) );
       if ( possibleVerbs.length === 1 ){
