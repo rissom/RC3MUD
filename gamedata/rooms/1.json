@@ -1,3 +1,1 @@
-{
-	"roomid": 1, "description": "You are in a deserialized space now!",
-	"exits" : [  ] }
+{"roomid": 1, "actions": [{"command": {"de": "gehe norden", "en": "go north"}, "description": {"de": "Im Norden ist irgendwas.", "en": "You see something in the north"}, "roomid": 2}], "name": "__undefined__", "description": { "en":"You are in a deserialized space now!"}, "items": [], "capacity": -1, "webview": { "en":"<b>Hier ist die HTML Beschreibung1</b>"}}

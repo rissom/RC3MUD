@@ -24,7 +24,12 @@ class Player(object):
                 
         ans = {
               "cmd": "text",
-              "data": "\r\n\r\n"+newroom.description+"\r\n"+actionsstring
+              "data": "\r\n\r\n"+i18n(self.lang,newroom.description)+"\r\n"+actionsstring
+            }
+        self.wsclient.write_message(ans)
+        ans = {
+              "cmd": "html",
+              "data": i18n(self.lang,newroom.webview)
             }
         self.wsclient.write_message(ans)
         self.room = newroom

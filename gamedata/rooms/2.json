@@ -1,0 +1,1 @@
+{"roomid": 2, "actions": [{"command": {"de": "gehe süden", "en": "go south"}, "description": {"de": "Im Süden liegt aller Anfang.", "en": "Everythings starts in the south."}, "roomid": 1}], "name": "__undefined__", "description": { "en":"You made it to room 2!"}, "items": [], "capacity": -1, "webview": { "en":"<b>Hier ist die HTML Beschreibung2</b>"}}

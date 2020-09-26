@@ -21,12 +21,12 @@ class Room(object):
         self.roomid = roomid
         self.player = []  # player in this room
         self.actions = [ { "command": { "de": "gehe norden"  , "en": "go north" } ,
-                           "description":  { "de": "Im Norden ist irgendwas.", "en": "You see something in the north" },
+                           "description":  { "de": "$$nix$$Im Norden ist irgendwas.", "en": "$$null$$You see something in the north" },
                            "roomid": 2 
                          }
                         ]
         self.name = "__undefined__"
-        self.description = "This is the well known undefined void where nothing has been created yet.\r\nThere are no exits and there is nothing to find here."
+        self.description = { "en": "This is the well known undefined void where nothing has been created yet.\r\nThere are no exits and there is nothing to find here."}
         self.items = []
         
         self.capacity = -1
@@ -45,6 +45,8 @@ class Room(object):
         
     def fromJSON(self, json):
         self.description = json["description"]
+        self.actions = json["actions"]
+        self.webview = json["webview"]
         
     def toJSON(self):
         ans = { "roomid" : self.roomid,
