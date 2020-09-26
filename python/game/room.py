@@ -53,7 +53,7 @@ class Room(object):
         
     def parse_user_command(self, player, msg):
         for a in self.actions:
-            if i18n(player.lang,a['command']).startswith(msg):
+            if msg.startswith(i18n(player.lang,a['command'])):
                 self.execute_action(player,a)
                 return True
         return False
