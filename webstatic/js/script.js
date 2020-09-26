@@ -82,12 +82,15 @@ ws.onmessage = function (message) {
 
   if (msg.cmd=="newcommandlist"){
     actionList = msg.data;
-    console.log (actionList);
   }
 
   if (msg.cmd=="addcommandlist"){
     actionList = actionList.concat (msg.data);
-    console.log (actionList);
+  }
+
+  if (msg.cmd=="removecommandlist"){
+    // filter out everything that is included in the remove list: Not yet tested!
+    newActionList = actionList.filter ( a =>  !msg.data.includes(a));  
   }
 	
 }
