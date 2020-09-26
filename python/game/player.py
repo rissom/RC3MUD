@@ -11,9 +11,11 @@ class Player(object):
         
     def enter_room(self, roomid):
         newroom = Room.get_room_by_id(roomid)
+        if len(newroom.exits) == 0:
+            exitstring = "There are no exits here, sorry..."
         ans = {
               "cmd": "text",
-              "data": newroom.description
+              "data": "\r\n\r\n"+newroom.description+"\r\n"+exitstring
             }
         self.wsclient.write_message(ans)
         

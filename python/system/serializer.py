@@ -14,7 +14,7 @@ class Serializer(object):
         roomfile = open(filename, 'r')
         filecontent = roomfile.read()
         jsonobj = json.loads(filecontent)
-        
+        log.debug("Serializer: loading room: id: "+str(roomid)+" "+str(jsonobj))
         from game.room import Room
         room = Room(roomid)
         room.fromJSON(jsonobj)

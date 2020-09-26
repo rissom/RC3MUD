@@ -15,12 +15,12 @@ class Room(object):
         Room.all_rooms.append(room)
         return room
     
-    
     def __init__(self, roomid):
         self.roomid = roomid
         self.player = []  # player in this room
-        self.description = "\r\nThis is the well known undefined void where nothing has been created yet.\r\nThere are no exits and there is nothing to find here."
+        self.exits = []
+        self.description = "This is the well known undefined void where nothing has been created yet.\r\nThere are no exits and there is nothing to find here."
         
     def fromJSON(self, json):
-        log.debug("not able to deserialize yet: "+str(json))
+        self.description = json["description"]
         
