@@ -43,7 +43,7 @@ class Player(object):
             Websocket.websocket_clients.remove(self.wsclient)
             
     def action_room2json(self,a,msg):
-        self.send_text(self.room.toJSON())
+        self.send_text("\r\n"+self.room.toJSON())
  
     def action_say(self,a,msg):
         for p in self.room.player:

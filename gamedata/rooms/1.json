@@ -1,1 +1,26 @@
-{"roomid": 1, "actions": [{"command": {"de": "gehe norden", "en": "go north"}, "description": {"de": "Im Norden ist irgendwas.", "en": "You see something in the north"}, "roomid": 2}], "name": "__undefined__", "description": { "en":"You are in a deserialized space now!"}, "items": [], "capacity": -1, "webview": { "en":"<b>Hier ist die HTML Beschreibung1</b>"}}
+{
+    "roomid": 1,
+    "actions": [
+        {
+            "command": {
+                "de": "gehe norden",
+                "en": "go north"
+            },
+            "description": {
+                "de": "Im Norden ist irgendwas. Es sieht nach... einer Rakete aus...",
+                "en": "You see something in the north. It looks like a... rocket..."
+            },
+            "roomid": 2
+        }
+    ],
+    "name": "start",
+    "description": {
+        "en": "You become aware of your existance...\r\nAround you, there is nothing but dense fog...",
+        "de": "Du materialisierst...\r\nUm Dich herum nur Nebel, der langsam heller wird...\r\n"
+    },
+    "items": [],
+    "capacity": -1,
+    "webview": {
+        "en": "<b>Hier ist die HTML Beschreibung1</b>"
+    }
+}

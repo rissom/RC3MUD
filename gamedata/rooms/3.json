@@ -1,0 +1,26 @@
+{
+    "roomid": 3,
+    "actions": [
+        {
+            "command": {
+                "de": "gehe s\u00fcden",
+                "en": "go south"
+            },
+            "description": {
+                "de": "Im \u00fcden liegt der Ausgang nach draussen.",
+                "en": "In the south is the exit to the outer world."
+            },
+            "roomid": 2
+        }
+    ],
+    "name": "entrance",
+    "description": {
+        "en": "You are in the entrance area of the congress hall.",
+        "de": "Du befindest dich im Eingangsbereich der Congresshalle."
+    },
+    "items": [],
+    "capacity": -1,
+    "webview": {
+        "en": "<b>Hier ist die HTML Beschreibung1</b>"
+    }
+}

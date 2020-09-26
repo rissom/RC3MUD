@@ -1,1 +1,37 @@
-{"roomid": 2, "actions": [{"command": {"de": "gehe süden", "en": "go south"}, "description": {"de": "Im Süden liegt aller Anfang.", "en": "Everythings starts in the south."}, "roomid": 1}], "name": "__undefined__", "description": { "en":"You made it to room 2!"}, "items": [], "capacity": -1, "webview": { "en":"<b>Hier ist die HTML Beschreibung2</b>"}}
+{
+    "roomid": 2,
+    "actions": [
+        {
+            "command": {
+                "de": "gehe s\u00fcden",
+                "en": "go south"
+            },
+            "description": {
+                "de": "Im S\u00fcden liegt aller Anfang.",
+                "en": "Everythings starts in the south."
+            },
+            "roomid": 1
+        },
+        {
+            "command": {
+                "de": "gehe norden",
+                "en": "go north"
+            },
+            "description": {
+                "de": "Im Norden befindet sich der Eingang zu etwas großem.",
+                "en": "To the north, there is the entrance to something big."
+            },
+            "roomid": 3
+        }
+    ],
+    "name": "outside_rocket",
+    "description": {
+        "en": "There really is a rocket idling here. Looks like it has landed here for a few days.",
+        "de": "Hier steht wirklich eine Rakete!\r\nSieht aus, als wäre sie hier für ein paar Tage gelandet."
+    },
+    "items": [],
+    "capacity": -1,
+    "webview": {
+        "en": "<b>Hier ist die HTML Beschreibung2</b>"
+    }
+}
