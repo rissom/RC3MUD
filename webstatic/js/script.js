@@ -1,9 +1,6 @@
 
 
-var current_term_line = "";
-
-var actionList = [ 'say', 'use', 'scream', 'go north', 'go south', 'go west', 'go east', 'rename' ];
-                  
+var current_term_line = "";                  
 
 var term = new window.Terminal.Terminal();
     term.open(document.getElementById('terminal'));
@@ -33,10 +30,8 @@ var term = new window.Terminal.Terminal();
         current_term_line = possibleVerbs[0] + " "; 
         term.write (current_term_line.slice(le));
       } else {
-        if (current_term_line.length>0){
           term.write ( "\r\n"+possibleVerbs .join(" ") + "\n\r");
           term.write ( "$ " + current_term_line );
-        }
       }
       break;
     default: // Print all other characters for demo
