@@ -2,6 +2,9 @@
 
 var current_term_line = "";
 
+var actionList = [ 'say', 'use', 'scream', 'go north', 'go south', 'go west', 'go east', 'rename' ];
+                  
+
 var term = new window.Terminal.Terminal();
     term.open(document.getElementById('terminal'));
     term.write('Welcome to the \x1B[1;3;31mRC3MUD\x1B[0m!\r\n');
@@ -20,6 +23,18 @@ var term = new window.Terminal.Terminal();
       if (term._core.buffer.x > 2) {
         term.write('\b \b');
         current_term_line = current_term_line.slice(0,-1);
+      }
+    case '\t':
+      possibleVerbs = actionList.filter ( y => y.startsWith( current_term_line ) );
+      if ( possibleVerbs.length === 1 ){
+        le = current_term_line.length;
+        current_term_line = possibleVerbs[0]; // add a space?
+        term.write (current_term_line.slice(le));
+      } else {
+        if (current_term_line.length>0){
+          term.write ( "\r\n"+possibleVerbs .join(" ") + "\n\r");
+          term.write ( "$ " + current_term_line );
+        }
       }
       break;
     default: // Print all other characters for demo
