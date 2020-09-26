@@ -8,6 +8,10 @@ class Player(object):
     actions = [ { "command": { "de": "sage"  , "en": "say" } ,
                  "function" : "action_say",
                 "description":  { "de": "sagt", "en": "says" }
+                },
+                { "command": { "de": "umbenennen"  , "en": "rename" } ,
+                 "function" : "action_rename",
+                "description":  { "de": "heisst jetzt", "en": "is now known as" }
                 }
               ]
     
@@ -32,7 +36,13 @@ class Player(object):
     def action_say(self,a,msg):
         for p in self.room.player:
             p.send_text("\r\n"+self.name+" "+i18n(p.lang,a['description'])+" '"+msg[ len(i18n(self.lang,a['command']))+1:]+"'")
-            
+    
+    def action_rename(self,a,msg):
+        newname = msg[ len(i18n(self.lang,a['command']))+1:]
+        for p in self.room.player:
+            p.send_text("\r\n"+self.name+" "+i18n(p.lang,a['description'])+" '"+newname+"'")
+        self.name = newname
+       
     def enter_room(self, roomid):
         newroom = Room.get_room_by_id(roomid)
         self.room.player_leaves_room(self)
