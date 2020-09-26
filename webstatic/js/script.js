@@ -18,6 +18,7 @@ var term = new window.Terminal.Terminal();
       // Do not delete the prompt
       if (term._core.buffer.x > 2) {
         term.write('\b \b');
+        current_term_line = current_term_line.slice(0,-1);
       }
       break;
     default: // Print all other characters for demo
