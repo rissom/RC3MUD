@@ -1,6 +1,10 @@
 
 
-var current_term_line = "";                  
+var current_term_line = "";        
+var actionList = ["say","rename"];
+var cHistory = [];
+var tempTermline = "";
+var historyIndex = 0;
 
 var term = new window.Terminal.Terminal();
     term.open(document.getElementById('terminal'));
@@ -8,10 +12,19 @@ var term = new window.Terminal.Terminal();
     term.focus();
     
     term.onData(e => {
+      // determine the Unicode code (only detects the first code! Arrows have 3 codes)
+      // var hex = e.codePointAt(0).toString(16);
+      // var result = "\\u" + "0000".substring(0, 4 - hex.length) + hex +" " ;
+      // term.write(result)
   switch (e) {
     case '\r': // Enter
       if (current_term_line.length>0){
     	  ws.send( JSON.stringify( { "cmd": "user", "data": current_term_line  } ));
+        if (!cHistory.includes(current_term_line)){
+          cHistory.push (current_term_line);
+          cHistory = cHistory.slice(-1000);      // keep history limited to 100 entries
+        }
+        historyIndex = 0;
     	  current_term_line = "";
       }
       break;
@@ -23,6 +36,43 @@ var term = new window.Terminal.Terminal();
       if (term._core.buffer.x > 2) {
         term.write('\b \b');
         current_term_line = current_term_line.slice(0,-1);
+      }
+      break;
+    case '\u001B\u005B\u0041': // Arrow up
+        // console.log ("historyIndex", historyIndex);
+        // console.log ("History", cHistory);
+        // console.log ("Historylength: "+cHistory.length)
+        if (historyIndex == 0 && current_term_line.length>0) {
+          tempTermline = current_term_line;
+        }
+        if (historyIndex < cHistory.length) {
+          historyIndex++;
+          clearLine(term);
+          current_term_line = cHistory.slice( - historyIndex )[0];
+          term.write(current_term_line);
+        }
+      break;
+    case '\u001B\u005B\u0043': // right
+        // do nothing at all
+      break;
+    case '\u001B\u005B\u0042':  // arrow down
+        // console.log ("historyIndex", historyIndex);
+        // console.log ("History", cHistory);
+        // console.log ("Historylength: "+cHistory.length)
+        clearLine(term);
+        if (historyIndex>1) {
+          historyIndex--;
+          current_term_line = cHistory.slice( - historyIndex )[0];
+          term.write(current_term_line);
+        } else {
+          current_term_line = tempTermline;
+        }
+      break;
+    case '\u001B\u005B\u0044':
+        // like backspace
+        if (term._core.buffer.x > 2) {
+        term.write('\b \b');
+        // term._core.buffer.x = current_term_line.length;
       }
       break;
     case '\t':
@@ -42,9 +92,17 @@ var term = new window.Terminal.Terminal();
     current_term_line = current_term_line+e;
   }
 });
-        
+
+
 function prompt(term) {
 	term.write('\r\n$ ');
+}
+
+
+function clearLine(term){
+  for (let i=0; i<current_term_line.length; i++){
+    term.write('\b \b');
+  } 
 }
         
         
