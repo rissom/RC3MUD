@@ -21,6 +21,10 @@ class Player(object):
                 { "command": {  "en": "room2json" } ,
                  "function" : "action_room2json",
                 "description":  { "en": "" }
+                },
+                { "command": {  "en": "look", "de": "schaue" } ,
+                 "function" : "action_look",
+                "description":  { "en": "" }
                 }
               ]
     
@@ -65,6 +69,15 @@ class Player(object):
        
     def action_whoami(self,a,msg):
         self.send_text("You are "+self.name)
+    def action_look(self,a,msg):
+        if len(self.room.actions) == 0:
+            actionsstring = "There is nothing you can do here, sorry..."
+        else:
+            actionsstring = ""
+            for a in self.room.actions:
+                actionsstring = actionsstring + i18n(self.lang, a['description'])+"\r\n"
+                
+        self.send_text("\r\n\r\n"+i18n(self.lang,self.room.description)+"\r\n"+actionsstring)
         
     def send_player_new_command_list(self):
         commands = []
@@ -79,6 +92,7 @@ class Player(object):
                 "type": "room",
                 "data" : commands}
         self.wsclient.write_message(ans)
+        
     def enter_room(self, roomid):
         newroom = Room.get_room_by_id(roomid)
         self.room.player_leaves_room(self)
