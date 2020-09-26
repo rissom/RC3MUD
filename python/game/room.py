@@ -32,6 +32,21 @@ class Room(object):
         self.capacity = -1
         self.webview = "<b>Hier ist die HTML Beschreibung</b>"
     
+    def player_leaves_room(self,player):
+        if player in self.player:
+            self.player.remove(player)
+        for p in self.player:
+            ans = { "cmd" : "text",
+                    "data" :i18n(p.lang,{ "en": ""+p.name+" leaves the room..." } )
+                    }
+            p.wsclient.write_message(ans)
+    def player_enters_room(self,player):
+        for p in self.player:
+            ans = { "cmd" : "text",
+                    "data" :i18n(p.lang,{ "en": ""+p.name+" enters the room..." } )
+                    }
+            p.wsclient.write_message(ans)
+        self.player.append(player)
     def execute_action(self,player,action):
         if 'roomid' in action:
             player.enter_room(action['roomid'])
