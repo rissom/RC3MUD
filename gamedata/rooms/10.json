@@ -24,7 +24,7 @@
         "en": "<H1>Verkehrswende selber hacken</H1>robbi5 and ubahnverleih"
     },
     "videoview": {
-        "en": "<iframe width='400' height='225' src='https://media.ccc.de/v/36c3-10881-verkehrswende_selber_hacken/oembed' frameborder='0' allowfullscreen></iframe>"
+        "en": "<iframe width='400' height='225' allow='autoplay' src='https://media.ccc.de/v/36c3-10881-verkehrswende_selber_hacken/oembed' frameborder='0' allowfullscreen></iframe>"
     }
     
 }

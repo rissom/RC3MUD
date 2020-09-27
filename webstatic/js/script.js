@@ -142,7 +142,7 @@ ws.onmessage = function (message) {
 	
 	if (msg.cmd=="text") {
 		for (var i=0;i<current_term_line.length+2;i++) {
-			term.write('\b');
+			term.write('\b \b');
 		}
 		term.write(msg.data+'\r\n$ ');
 		term.write(current_term_line);

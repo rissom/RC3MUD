@@ -24,7 +24,7 @@
         "en": "<H1>Opening Ceremony</H1>bleeptrack and blinry"
     },
     "videoview": {
-        "en": "<iframe width='400' height='225' src='https://media.ccc.de/v/36c3-11223-opening_ceremony/oembed' frameborder='0' allowfullscreen></iframe>"
+        "en": "<iframe width='400' height='225' allow='autoplay' src='https://media.ccc.de/v/36c3-11223-opening_ceremony/oembed' frameborder='0' allowfullscreen></iframe>"
     }
     
 }
