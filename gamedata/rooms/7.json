@@ -1,5 +1,5 @@
 {
-    "roomid": 3,
+    "roomid": 7,
     "actions": [
         {
             "command": {
@@ -21,6 +21,7 @@
     "items": [],
     "capacity": -1,
     "webview": {
-        "en": "<b>Hier ist die HTML Beschreibung1</b>"
+        "en": "<h1>In der Kongresshalle</h1> Ausgänge: Süden, Norden",
+        "de": "<img src='http://unidaplan.com/halle.jpg' width=400  />"
     }
 }
