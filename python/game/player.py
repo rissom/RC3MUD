@@ -9,27 +9,38 @@ class Player(object):
     
     actions = [ { "command": { "de": "sage"  , "en": "say" } ,
                  "function" : "action_say",
-                "description":  { "de": "sagt", "en": "says" }
+                "description":  { "de": "sagt", "en": "says" },
+                "help":  { "de": "'sage <text>' wird von allen Personen im selben Raum erhört.", "en": "'say <text>' will be heard from all persons in the same room." }
                 },
                 { "command": { "de": "umbenennen"  , "en": "rename" } ,
                  "function" : "action_rename",
-                "description":  { "de": "heisst jetzt", "en": "is now known as" }
+                "description":  { "de": "heisst jetzt", "en": "is now known as" },
+                "help": { "de": "$$tdb$$", "en": "$$tdb$$" }
                 },
                 { "command": { "de": "wer bin ich"  , "en": "whoami" } ,
                  "function" : "action_whoami",
-                "description":  { "de": "heisst jetzt", "en": "is now known as" }
+                "description":  { "de": "heisst jetzt", "en": "is now known as" },
+                "help": { "de": "$$tdb$$", "en": "$$tdb$$" }
                 },
                 { "command": {  "en": "room2json" } ,
                  "function" : "action_room2json",
-                "description":  { "en": "" }
+                "description":  { "en": "" },
+                "help": { "de": "$$tdb$$", "en": "$$tdb$$" }
                 },
                 { "command": {  "en": "look", "de": "schaue" } ,
                  "function" : "action_look",
-                "description":  { "en": "" }
+                "description":  { "en": "" },
+                "help": { "de": "$$tdb$$", "en": "$$tdb$$" }
                 },
                 { "command": {  "en": "sleep", "de": "schlafe" } ,
                  "function" : "action_sleep",
-                "description":  { "en": "You feel refrehed!", "de":"Du fühlst Dich erholt!" }
+                "description":  { "en": "You feel refrehed!", "de":"Du fühlst Dich erholt!" },
+                "help": { "de": "$$tdb$$", "en": "$$tdb$$" }
+                },
+                { "command": {  "en": "help", "de": "hilfe" } ,
+                 "function" : "action_help",
+                "description":  { "en": "try 'help <command>'...", "de":"versuche 'hilfe <Kommando>'..." },
+                "help": { "de": "$$tdb$$", "en": "$$tdb$$" }
                 }
               ]
     
@@ -64,6 +75,15 @@ class Player(object):
     
     def action_sleep(self,a,msg):
         self.send_text(i18n(self.lang,a['description']))
+        
+    def action_help(self,a,msg):
+        if len(msg.split())<2:
+            self.send_text(i18n(self.lang,a['description']))
+            return
+        for a in Player.actions:
+            if msg[5:].startswith(i18n(self.lang,a['command'])):
+                self.send_text(i18n(self.lang,a['help']))
+                return
     
     def action_rename(self,a,msg):
         newname = msg[ len(i18n(self.lang,a['command']))+1:]
