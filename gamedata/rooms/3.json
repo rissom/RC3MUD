@@ -3,34 +3,34 @@
     "actions": [
         {
             "command": {
-                "de": "gehe s\u00fcden",
-                "en": "go south"
+                "de": "gehe westen",
+                "en": "go west"
             },
             "description": {
-                "de": "Im \u00fcden liegt der Ausgang nach draussen.",
-                "en": "In the south is the exit to the outer world."
+                "de": "Im Westen liegt der Ausgang nach draussen.",
+                "en": "In the west is the exit to the outer world."
             },
             "roomid": 2
         },
         {
             "command": {
-                "de": "gehe Osten",
-                "en": "go east"
+                "de": "gehe Norden",
+                "en": "go north"
             },
             "description": {
-                "de": "Im Osten siehtst Du den Infopoint.",
-                "en": "In the east is the tourist information."
+                "de": "Im Norden siehtst Du den Infopoint.",
+                "en": "In the north is the tourist information."
             },
             "roomid": 8
         },
         {
             "command": {
-                "de": "gehe norden",
-                "en": "go north"
+                "de": "gehe osten",
+                "en": "go east"
             },
             "description": {
-                "de": "Im Norden siehst Du die Haupthalle.",
-                "en": "In the north is the main hall."
+                "de": "Im Osten siehst Du die Haupthalle.",
+                "en": "In the east is the main hall."
             },
             "roomid": 4
         }
@@ -43,6 +43,7 @@
     "items": [],
     "capacity": -1,
     "webview": {
-        "en": "<b>Hier ist die HTML Beschreibung1</b>"
+        "en": "<h1>Entrance Area</h1>",
+        "de": "<img src='http://unidaplan.com/halle.jpg' width=400  />"
     }
 }

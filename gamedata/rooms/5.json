@@ -3,25 +3,14 @@
     "actions": [
         {
             "command": {
-                "de": "gehe s\u00fcden",
-                "en": "go south"
+                "de": "gehe westen",
+                "en": "go west"
             },
             "description": {
-                "de": "Im \u00fcden liegt der suedliche Teil der Mainhall.",
-                "en": "In the south is southern part of the main hall."
+                "de": "Im Westen liegt der suedliche Teil der Mainhall.",
+                "en": "In the west is southern part of the main hall."
             },
             "roomid": 4
-        },
-        {
-            "command": {
-                "de": "gehe norden",
-                "en": "go north"
-            },
-            "description": {
-                "de": "Im Norden liegt nördliche Teil der Mainhall.",
-                "en": "In the north is the northern part of the main hall."
-            },
-            "roomid": 6
         },
         {
             "command": {
@@ -29,8 +18,19 @@
                 "en": "go east"
             },
             "description": {
-                "de": "Im Osten liegt der Saal 'Borg'.",
-                "en": "In the east is the lecture hall 'Borg'."
+                "de": "Im Osten liegt östliche Teil der Haupthalle.",
+                "en": "In the east is the eastern part of the main hall."
+            },
+            "roomid": 6
+        },
+        {
+            "command": {
+                "de": "gehe süden",
+                "en": "go south"
+            },
+            "description": {
+                "de": "Im Süden liegt der Saal 'Borg'.",
+                "en": "In the south is the lecture hall 'Borg'."
             },
             "roomid": 10
         }
@@ -43,7 +43,7 @@
     "items": [],
     "capacity": -1,
     "webview": {
-        "en": "<img src='http://unidaplan.com/halle.jpg' width=400  />",
-        "de": "<img src='http://unidaplan.com/halle.jpg' width=400  />"
+        "en": "<h1>Middle of main hall</h1>",
+        "de": "<h1>Mitte der Haupthalle</h1>"
     }
 }

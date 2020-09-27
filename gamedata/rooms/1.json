@@ -3,11 +3,11 @@
     "actions": [
         {
             "command": {
-                "de": "gehe norden",
-                "en": "go north"
+                "de": "gehe osten",
+                "en": "go east"
             },
             "description": {
-                "de": "Im Norden ist irgendwas. Es sieht nach... einer Rakete aus...",
+                "de": "Im Osten ist irgendwas. Es sieht nach... einer Rakete aus...",
                 "en": "You see something in the north. It looks like a... rocket..."
             },
             "roomid": 2
@@ -21,6 +21,7 @@
     "items": [],
     "capacity": -1,
     "webview": {
-        "en": "<b>Hier ist die HTML Beschreibung1</b>"
+        "en": "<h1>In the fog</h1>",
+        "de": "<h1>Im Nebel</h1>"
     }
 }

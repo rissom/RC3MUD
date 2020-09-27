@@ -21,7 +21,7 @@
     "items": [],
     "capacity": -1,
     "webview": {
-        "en": "<h1>In der Kongresshalle</h1> Ausgänge: Süden, Norden",
-        "de": "<img src='http://unidaplan.com/halle.jpg' width=400  />"
+        "en": "<h1>Inside the rocket</h1>",
+        "de": "<h1>In der Rakete</h1>"
     }
 }

@@ -3,24 +3,25 @@
     "actions": [
         {
             "command": {
-                "de": "gehe westen",
-                "en": "go west"
+                "de": "gehe norden",
+                "en": "go north"
             },
             "description": {
-                "de": "Im westen befindet sich der Eingangsbereich.",
-                "en": "In the west is the entrance area."
+                "de": "Im Norden befindet sich der Eingangsbereich.",
+                "en": "In the north is the entrance area."
             },
             "roomid": 3
         }
     ],
     "name": "infopoint",
     "description": {
-        "en": "You are at the tourist information.",
+        "en": "You are at the information point.",
         "de": "Du befindest dich am Infopoint."
     },
     "items": [],
     "capacity": -1,
     "webview": {
-        "en": "<b>Hier ist die HTML Beschreibung1</b>"
+        "en": "<h1>Infopoint</h1><ul><li>Vortragsprogramm</li><li>Wo kann ich Kippen kaufen?</li><ul>",
+        "de": "<h1>Infopoint</h1><ul><li>program</li><li>Where can I buy cigarettes?</li><ul>"
     }
 }
