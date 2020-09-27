@@ -49,7 +49,7 @@ class Player(object):
             try:
                 Websocket.websocket_clients.remove(self.wsclient)
             except:
-                log.error("uuh, not in list, haeh?")
+                log.error("uuh, wsclient not in not in list, haeh?")
             
     def action_room2json(self,a,msg):
         self.send_text("\r\n"+self.room.toJSON())

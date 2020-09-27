@@ -11,7 +11,7 @@ class Config(object):
     
     config = {
         "gui.show" : { "default": "false", "type": "bool", "label":"", "showgui":"false", "order": 0 },
-        "webserverport" : { "default": "8080", "type": "int", "label":"", "showgui":"false", "order": 0}
+        "webserverport" : { "default": "8000", "type": "int", "label":"", "showgui":"false", "order": 0}
     }
     
     def __init__(self):
