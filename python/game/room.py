@@ -37,7 +37,7 @@ class Room(object):
         if player in self.player:
             self.player.remove(player)
         for p in self.player:
-            p.send_text(i18n(p.lang,{ "en": ""+p.name+" leaves the room..." } ))
+            p.send_text(i18n(p.lang,{ "en": ""+player.name+" leaves the room..." } ))
     
     def get_room_command_list(self,player):
         commands = []
@@ -47,7 +47,7 @@ class Room(object):
                 
     def player_enters_room(self,player):
         for p in self.player:
-            p.send_text(i18n(p.lang,{ "en": ""+p.name+" enters the room..." }))
+            p.send_text(i18n(p.lang,{ "en": ""+player.name+" enters the room..." }))
         self.player.append(player)
         
     def execute_action(self,player,action):
