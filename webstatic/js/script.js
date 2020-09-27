@@ -97,7 +97,7 @@ var term = new window.Terminal.Terminal();
             for (i=0; i < Math.min( x.length, y.length ) && x[i]==y[i]; i++){}
             return x.slice(0,i);
           })
-          term.write ( "\r\n"+possibleVerbs .join(" ") + "\n\r");
+          term.write ( "\r\n"+possibleVerbs .join(" ") );
           prompt(term)
           term.write ( startsWith );
           current_term_line = startsWith;
@@ -111,7 +111,10 @@ var term = new window.Terminal.Terminal();
 
 
 function prompt(term) {
-	term.write('\r\n# ');
+	term.write('\r\n$ ');
+}
+function promtlength() {
+	return 2;
 }
 
 
@@ -131,7 +134,7 @@ ws.onopen = function() {
 
 ws.onerror = function() {
 	console.log("ws onerror");
-	
+	term.write('\r\n\x1B[1;3;31mConnection error...\x1B[0m');
 };
 
 ws.onclose = function() {
@@ -146,10 +149,11 @@ ws.onmessage = function (message) {
 	var msg = JSON.parse(message.data);
 	
 	if (msg.cmd=="text") {
-		for (var i=0;i<current_term_line.length+2;i++) {
+		for (var i=0;i<current_term_line.length+promtlength();i++) {
 			term.write('\b \b');
 		}
-		term.write(msg.data+'\r\n$ ');
+		term.write(msg.data);
+		prompt(term);
 		term.write(current_term_line);
 	}
 

@@ -15,32 +15,32 @@ class Player(object):
                 { "command": { "de": "umbenennen"  , "en": "rename" } ,
                  "function" : "action_rename",
                 "description":  { "de": "heisst jetzt", "en": "is now known as" },
-                "help": { "de": "$$tdb$$", "en": "$$tdb$$" }
+                "help": { "de": "##tbdb##", "en": "##tbdb##" }
                 },
                 { "command": { "de": "wer bin ich"  , "en": "whoami" } ,
                  "function" : "action_whoami",
                 "description":  { "de": "heisst jetzt", "en": "is now known as" },
-                "help": { "de": "$$tdb$$", "en": "$$tdb$$" }
+                "help": { "de": "##tbdb##", "en": "##tbdb##" }
                 },
                 { "command": {  "en": "room2json" } ,
                  "function" : "action_room2json",
                 "description":  { "en": "" },
-                "help": { "de": "$$tdb$$", "en": "$$tdb$$" }
+                "help": { "de": "##tbdb##", "en": "##tbdb##" }
                 },
                 { "command": {  "en": "look", "de": "schaue" } ,
                  "function" : "action_look",
                 "description":  { "en": "" },
-                "help": { "de": "$$tdb$$", "en": "$$tdb$$" }
+                "help": { "de": "##tbdb##", "en": "##tbdb##" }
                 },
                 { "command": {  "en": "sleep", "de": "schlafe" } ,
                  "function" : "action_sleep",
                 "description":  { "en": "You feel refrehed!", "de":"Du fühlst Dich erholt!" },
-                "help": { "de": "$$tdb$$", "en": "$$tdb$$" }
+                "help": { "de": "##tbdb##", "en": "##tbdb##" }
                 },
                 { "command": {  "en": "help", "de": "hilfe" } ,
                  "function" : "action_help",
-                "description":  { "en": "try 'help <command>'...", "de":"versuche 'hilfe <Kommando>'..." },
-                "help": { "de": "$$tdb$$", "en": "$$tdb$$" }
+                "description":  { "en": "try 'help <command>'... Use TAB key to see/extend commands.", "de":"versuche 'hilfe <Kommando>'... Benutze die Tabulatortaste, um Kommandos zu sehen und zu ergänzen." },
+                "help": { "de": "Setz Dich und nimm Dir nen Keks!", "en": "Have a cookie." }
                 }
               ]
     
