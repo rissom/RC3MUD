@@ -111,6 +111,19 @@ class Player(object):
               "data": i18n(self.lang,newroom.webview)
             }
         self.wsclient.write_message(ans)
+        if  newroom.videoview:
+            ans = {
+              "cmd": "video",
+              "enabled": True,
+              "data": i18n(self.lang,newroom.videoview)
+            }
+            self.wsclient.write_message(ans)
+        else:
+            ans = {
+              "cmd": "video",
+              "enabled": False
+            }
+            self.wsclient.write_message(ans)
         self.room = newroom
         self.send_player_new_command_list()
         
