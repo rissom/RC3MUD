@@ -1,0 +1,26 @@
+{
+    "roomid": 8,
+    "actions": [
+        {
+            "command": {
+                "de": "gehe westen",
+                "en": "go south"
+            },
+            "description": {
+                "de": "Im westen befindet sich der Eingangsbereich.",
+                "en": "In the west is the entrance area."
+            },
+            "roomid": 3
+        }
+    ],
+    "name": "infopoint",
+    "description": {
+        "en": "You are at the tourist information.",
+        "de": "Du befindest dich am Infopoint."
+    },
+    "items": [],
+    "capacity": -1,
+    "webview": {
+        "en": "<b>Hier ist die HTML Beschreibung1</b>"
+    }
+}

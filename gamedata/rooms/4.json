@@ -1,0 +1,48 @@
+{
+    "roomid": 4,
+    "actions": [
+        {
+            "command": {
+                "de": "gehe s\u00fcden",
+                "en": "go south"
+            },
+            "description": {
+                "de": "Im \u00fcden liegt der Eingangsbereich.",
+                "en": "In the south is the entrance area."
+            },
+            "roomid": 3
+        },
+        {
+            "command": {
+                "de": "gehe osten",
+                "en": "go east"
+            },
+            "description": {
+                "de": "Im Osten befindet sich Saal 'Adams'.",
+                "en": "In the east is the lecture hall 'Adams'."
+            },
+            "roomid": 9
+        },
+        {
+            "command": {
+                "de": "gehe norden",
+                "en": "go north"
+            },
+            "description": {
+                "de": "Im norden ist die Mitte der Haupthalle.",
+                "en": "In nord is the center of the main hall."
+            },
+            "roomid": 5
+        }
+    ],
+    "name": "mainhall_s",
+    "description": {
+        "en": "You are in the southern part of the main hall.",
+        "de": "Du befindest dich süden der Congresshalle."
+    },
+    "items": [],
+    "capacity": -1,
+    "webview": {
+        "en": "<b>Hier ist die HTML Beschreibung1</b>"
+    }
+}

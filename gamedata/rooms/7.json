@@ -11,28 +11,6 @@
                 "en": "In the south is the exit to the outer world."
             },
             "roomid": 2
-        },
-        {
-            "command": {
-                "de": "gehe Osten",
-                "en": "go east"
-            },
-            "description": {
-                "de": "Im Osten siehtst Du den Infopoint.",
-                "en": "In the east is the tourist information."
-            },
-            "roomid": 8
-        },
-        {
-            "command": {
-                "de": "gehe norden",
-                "en": "go north"
-            },
-            "description": {
-                "de": "Im Norden siehst Du die Haupthalle.",
-                "en": "In the north is the main hall."
-            },
-            "roomid": 2
         }
     ],
     "name": "entrance",

@@ -1,0 +1,26 @@
+{
+    "roomid": 10,
+    "actions": [
+        {
+            "command": {
+                "de": "gehe westen",
+                "en": "go west"
+            },
+            "description": {
+                "de": "Im westen ist die Congresshalle.",
+                "en": "In the west is the main hall."
+            },
+            "roomid": 5
+        }
+    ],
+    "name": "borg",
+    "description": {
+        "en": "You are in lecture hall 'Borg'.",
+        "de": "Du befindest dich im Saal 'Borg'."
+    },
+    "items": [],
+    "capacity": -1,
+    "webview": {
+        "en": "<b>Hier ist die HTML Beschreibung1</b>"
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "roomid": 11,
+    "actions": [
+        {
+            "command": {
+                "de": "gehe westen",
+                "en": "go west"
+            },
+            "description": {
+                "de": "Im Westen liegt die Congresshalle.",
+                "en": "In the west is the main hall."
+            },
+            "roomid": 6
+        }
+    ],
+    "name": "lounge",
+    "description": {
+        "en": "You are in the lounge area.",
+        "de": "Du befindest dich iin der Lounge."
+    },
+    "items": [],
+    "capacity": -1,
+    "webview": {
+        "en": "<b>Hier ist die HTML Beschreibung1</b>"
+    }
+}
