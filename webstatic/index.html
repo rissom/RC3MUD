@@ -1,13 +1,18 @@
 <!doctype html>
-<html>
+<html style="height:100%;">
 <head>
+<meta charset="UTF-8">
 <link rel="stylesheet"
 	href="https://unpkg.com/xterm@4.0.0/css/xterm.css" />
 <script src="https://unpkg.com/xterm@4.0.0/lib/xterm.js"></script>
 </head>
-<body style="background-color:#211c1c">
-Wie möchtest Du genannt werden?
-<input id="playername" type="text">
+<body style="background-color:#211c1c; height:100%; margin:0px; color:#f0f1ef;">
+	<div style="display: flex;justify-content: center;align-items:center;height:100%;min-height:100%;">
+		<div>
+			Wie möchtest Du genannt werden?
+			<input id="playername" type="text" autofocus style="margin-left:1rem;">
+		</div>
+	</div>
 <script>
 	const node = document.getElementById("playername");
 	node.addEventListener("keyup", function(event) {
