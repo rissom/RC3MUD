@@ -21,7 +21,7 @@
     "items": [],
     "capacity": -1,
     "webview": {
-        "en": "<h1>Infopoint</h1><ul><li>Vortragsprogramm</li><li>Wo kann ich Kippen kaufen?</li><ul>",
-        "de": "<h1>Infopoint</h1><ul><li>program</li><li>Where can I buy cigarettes?</li><ul>"
+        "de": "<h1>Infopoint</h1><ul><li>Vortragsprogramm</li><li>Wo kann ich Kippen kaufen?</li><ul>",
+        "en": "<h1>Infopoint</h1><ul><li>program</li><li>Where can I buy cigarettes?</li><ul>"
     }
 }
