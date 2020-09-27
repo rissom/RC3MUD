@@ -32,7 +32,7 @@
     "items": [],
     "capacity": -1,
     "webview": {
-        "en": "<img src='http://unidaplan.com/rocket.jpg' width='400'>"
+        "en": "<img src='http://unidaplan.com/rocket.jpg'/>"
     },
     "videoview": { } 
 }

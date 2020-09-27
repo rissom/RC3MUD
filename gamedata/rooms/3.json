@@ -44,6 +44,6 @@
     "capacity": -1,
     "webview": {
         "en": "<h1>Entrance Area</h1>",
-        "de": "<img src='http://unidaplan.com/halle.jpg' width=400  />"
+        "de": "<img src='http://unidaplan.com/halle.jpg'/>"
     }
 }

@@ -20,6 +20,10 @@ body, h1, h2, h3, h4 {
 	color: lightgrey;
 }
 
+#webview img {
+	width: 100% !important;
+}
+
 #videoview {
 	padding: 0.5rem;
 }

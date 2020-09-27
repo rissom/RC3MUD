@@ -22,7 +22,8 @@ class Serializer(object):
         log.debug("Serializer: loading room: id: "+str(roomid)+" "+str(jsonobj))
         from game.room import Room
         room = Room(roomid)
-        room.fromJSON(jsonobj)
+        if not jsonobj==False:
+            room.fromJSON(jsonobj)
         return room
     
     

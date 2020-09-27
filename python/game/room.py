@@ -21,17 +21,18 @@ class Room(object):
     def __init__(self, roomid):
         self.roomid = roomid
         self.player = []  # player in this room
-        self.actions = [ { "command": { "de": "gehe norden"  , "en": "go north" } ,
-                           "description":  { "de": "$$nix$$Im Norden ist irgendwas.", "en": "$$null$$You see something in the north" },
-                           "roomid": 2 
+        self.actions = [ { "command": {} ,
+                           "description":  {  },
+                           "roomid": 0
                          }
                         ]
         self.name = "__undefined__"
-        self.description = { "en": "This is the well known undefined void where nothing has been created yet.\r\nThere are no exits and there is nothing to find here."}
+        self.description = { "de": "Irgendetwas lief total schief...\r\n...ein unangenehmer, aber doch vertrauter Zustand...\r\n...für den es viele Wörter gibt: Null, Void, NaN...",
+                            "en": "Something went terribly wrong...\r\n...and now you ended up in a frightening but familiar state...\r\n...there are many names for this: null, void, NaN..."}
         self.items = []
         
         self.capacity = -1
-        self.webview = "<b>Hier ist die HTML Beschreibung</b>"
+        self.webview = { "en": "null", "de": "null" }
     
     def player_leaves_room(self,player):
         if player in self.player:
