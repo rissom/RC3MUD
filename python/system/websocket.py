@@ -53,7 +53,7 @@ class Websocket(tornado.websocket.WebSocketHandler):
         
             
     def on_close(self):
-        print("WebSocket closed")
+        log.debug("WebSocket closed")
         Websocket.websocket_clients.remove(self)
 
         

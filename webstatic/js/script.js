@@ -141,8 +141,11 @@ ws.onmessage = function (message) {
 	var msg = JSON.parse(message.data);
 	
 	if (msg.cmd=="text") {
-		term.write('\b\b');
+		for (var i=0;i<current_term_line.length+2;i++) {
+			term.write('\b');
+		}
 		term.write(msg.data+'\r\n$ ');
+		term.write(current_term_line);
 	}
 
   if (msg.cmd=="html"){
