@@ -25,10 +25,13 @@ var term = new window.Terminal.Terminal();
   switch (e) {
     case '\r': // Enter
       if (current_term_line.length>0){
-    	  ws.send( JSON.stringify( { "cmd": "user", "data": current_term_line  } ));
+    	  var data = JSON.stringify( { "cmd": "user", "data": current_term_line  } );
+    	  console.log("ws: --> "+data);
+    	  ws.send( data );
+    	  prompt(term);
         if (!cHistory.includes(current_term_line)){
           cHistory.push (current_term_line);
-          cHistory = cHistory.slice(-1000);      // keep history limited to 100 entries
+          cHistory = cHistory.slice(-100);      // keep history limited to 100 entries
         }
         historyIndex = 0;
     	  current_term_line = "";
@@ -36,6 +39,7 @@ var term = new window.Terminal.Terminal();
       break;
     case '\u0003': // Ctrl+C
       prompt(term);
+      current_term_line = "";
       break;
     case '\u007F': // Backspace (DEL)
       // Do not delete the prompt
@@ -107,7 +111,7 @@ var term = new window.Terminal.Terminal();
 
 
 function prompt(term) {
-	term.write('\r\n$ ');
+	term.write('\r\n# ');
 }
 
 
@@ -136,8 +140,9 @@ ws.onclose = function() {
 };
 
 ws.onmessage = function (message) {
-	console.log("ws: "+message.data);
+	console.log("ws: <-- "+message.data);
 	
+	console.log("ctl: "+current_term_line+" len: "+current_term_line.length);
 	var msg = JSON.parse(message.data);
 	
 	if (msg.cmd=="text") {

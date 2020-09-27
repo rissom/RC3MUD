@@ -71,7 +71,7 @@ class Player(object):
  
     def action_say(self,a,msg):
         for p in self.room.player:
-            p.send_text("\r\n"+self.name+" "+i18n(p.lang,a['description'])+" '"+msg[ len(i18n(self.lang,a['command']))+1:]+"'")
+            p.send_text(self.name+" "+i18n(p.lang,a['description'])+" '"+msg[ len(i18n(self.lang,a['command']))+1:]+"'")
     
     def action_sleep(self,a,msg):
         self.send_text(i18n(self.lang,a['description']))
@@ -92,7 +92,7 @@ class Player(object):
             return
         
         for p in self.room.player:
-            p.send_text("\r\n"+self.name+" "+i18n(p.lang,a['description'])+" '"+newname+"'")
+            p.send_text(self.name+" "+i18n(p.lang,a['description'])+" '"+newname+"'")
         self.name = newname
        
     def action_whoami(self,a,msg):
