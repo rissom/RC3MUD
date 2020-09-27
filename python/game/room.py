@@ -64,7 +64,13 @@ class Room(object):
     def fromJSON(self, json):
         self.description = json["description"]
         self.actions = json["actions"]
+        self.name = json["name"]
         self.webview = json["webview"]
+        self.capacity = json["capacity"]
+        if "videoview" in json:
+            self.videoview = json["videoview"]
+        else:
+            self.videoview = False
         
     def toJSON(self):
         ans = { "roomid" : self.roomid,
@@ -73,7 +79,8 @@ class Room(object):
                "description" : self.description,
                "items" : self.items,
                "capacity" : self.capacity,
-               "webview" : self.webview
+               "webview" : self.webview,
+               "videoview" : self.videoview
              }
         return json.dumps(ans,indent=4).replace('\n', '\r\n')
     

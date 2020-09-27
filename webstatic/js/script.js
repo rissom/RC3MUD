@@ -150,6 +150,15 @@ ws.onmessage = function (message) {
     wv.innerHTML = msg.data;
     // '<iframe src="http://unidaplan.com/rocket.html" width=250 height="250"</iframe>'
   }
+  if (msg.cmd=="video"){
+	    var wv = document.querySelector("#videoview");
+	    if (msg.enabled) {
+	    	wv.classList.remove("d-none");
+	    } else {
+	    	wv.classList.add("d-none");
+	    }
+	    wv.innerHTML = msg.data;
+	  }
 
   if (msg.cmd=="newcommandlist"){
     actionList = msg.data;
