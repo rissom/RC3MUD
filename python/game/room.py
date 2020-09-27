@@ -64,7 +64,9 @@ class Room(object):
     def fromJSON(self, json):
         self.description = json["description"]
         self.actions = json["actions"]
+        self.name = json["name"]
         self.webview = json["webview"]
+        self.capacity = json["capacity"]
         if "videoview" in json:
             self.videoview = json["videoview"]
         else:
