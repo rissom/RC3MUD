@@ -2,3 +2,24 @@
 .d-none {
 	display: none;
 }
+
+body {
+	font-family: sans-serif;
+}
+
+body, h1, h2, h3, h4 {
+	margin: 0;
+}
+
+#terminal {
+	padding-top: 0.5rem;
+}
+
+#webview {
+	padding: 0.5rem;
+	color: lightgrey;
+}
+
+#videoview {
+	padding: 0.5rem;
+}
