@@ -21,7 +21,6 @@
     "items": [],
     "capacity": -1,
     "webview": {
-        "en": "<h1>In the fog</h1>",
-        "de": "<h1>Im Nebel</h1>"
+        "en": "<img src='http://unidaplan.com/fog-by-Bev-Sykes.jpg'>"
     }
 }

@@ -32,7 +32,7 @@
     "items": [],
     "capacity": -1,
     "webview": {
-        "en": "<h1>Eastern part of main hall</h1>",
-        "de": "<h1>Östlicher Teil der Haupthalle</h1>"
+        "en": "<img src='http://unidaplan.com/halle-ost.jpg'>"
+
     }
 }
