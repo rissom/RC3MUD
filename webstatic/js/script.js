@@ -35,6 +35,8 @@ var term = new window.Terminal.Terminal();
         }
         historyIndex = 0;
     	  current_term_line = "";
+      } else {
+    	  prompt(term);  // allow user to press enter to get some space on the screen...
       }
       break;
     case '\u0003': // Ctrl+C
@@ -116,8 +118,12 @@ function prompt(term) {
 function promtlength() {
 	return 2;
 }
-
-
+function clearPrompt(term) {
+	var promtlength=2;
+	for (let i=0; i<promtlength; i++){
+	    term.write('\b \b');
+	  }
+}
 function clearLine(term){
   for (let i=0; i<current_term_line.length; i++){
     term.write('\b \b');
@@ -144,23 +150,19 @@ ws.onclose = function() {
 
 ws.onmessage = function (message) {
 	console.log("ws: <-- "+message.data);
-	
-	console.log("ctl: "+current_term_line+" len: "+current_term_line.length);
 	var msg = JSON.parse(message.data);
 	
 	if (msg.cmd=="text") {
-		for (var i=0;i<current_term_line.length+promtlength();i++) {
-			term.write('\b \b');
-		}
-		term.write(msg.data);
-		prompt(term);
-		term.write(current_term_line);
+		clearLine(term); // remove user written text
+		clearPrompt(term); // remove prompt
+		term.write(msg.data); // write servers message
+		prompt(term); // write newline + new prompt
+		term.write(current_term_line); // restore old user input
 	}
 
   if (msg.cmd=="html"){
     var wv = document.querySelector("#webview");
     wv.innerHTML = msg.data;
-    // '<iframe src="http://unidaplan.com/rocket.html" width=250 height="250"</iframe>'
   }
   if (msg.cmd=="video"){
 	    var wv = document.querySelector("#videoview");

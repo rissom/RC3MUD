@@ -97,6 +97,7 @@ class Player(object):
        
     def action_whoami(self,a,msg):
         self.send_text("You are "+self.name)
+        
     def action_look(self,a,msg):
         if len(self.room.actions) == 0:
             actionsstring = "There is nothing you can do here, sorry..."
@@ -105,7 +106,7 @@ class Player(object):
             for a in self.room.actions:
                 actionsstring = actionsstring + i18n(self.lang, a['description'])+"\r\n"
                 
-        self.send_text("\r\n\r\n"+i18n(self.lang,self.room.description)+"\r\n"+actionsstring)
+        self.send_text("\r\n"+i18n(self.lang,self.room.description)+"\r\n"+actionsstring)
         
     def send_player_new_command_list(self):
         commands = []
