@@ -3,12 +3,12 @@
     "actions": [
         {
             "command": {
-                "de": "gehe westen",
-                "en": "go west"
+                "de": "gehe norden",
+                "en": "go north"
             },
             "description": {
-                "de": "Im Westen liegt die Congresshalle.",
-                "en": "In the west is the main hall."
+                "de": "Im Norden liegt die Congresshalle.",
+                "en": "In the north is the main hall."
             },
             "roomid": 6
         }
