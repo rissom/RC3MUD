@@ -11,6 +11,7 @@ var cHistory = [];
 var tempTermline = "";
 var historyIndex = 0;
 
+
 var term = new window.Terminal.Terminal();
     term.open(document.getElementById('terminal'));
     term.write('Welcome to the \x1B[1;3;31mRC3MUD\x1B[0m!\r\n');
@@ -87,9 +88,15 @@ var term = new window.Terminal.Terminal();
         current_term_line = possibleVerbs[0] + " "; 
         term.write (current_term_line.slice(le));
       } else {
+          let startsWith = possibleVerbs.reduce( (x,y) => { 
+            let i=0;
+            for (i=0; i < Math.min( x.length, y.length ) && x[i]==y[i]; i++){}
+            return x.slice(0,i);
+          })
           term.write ( "\r\n"+possibleVerbs .join(" ") + "\n\r");
           prompt(term)
-          term.write ( current_term_line );
+          term.write ( startsWith );
+          current_term_line = startsWith;
       }
       break;
     default: // Print all other characters for demo
