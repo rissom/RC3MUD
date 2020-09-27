@@ -54,6 +54,7 @@ class Websocket(tornado.websocket.WebSocketHandler):
             
     def on_close(self):
         log.debug("WebSocket closed")
+        self.player.ws_disconnect()
         Websocket.websocket_clients.remove(self)
 
         

@@ -26,6 +26,10 @@ class Player(object):
                 { "command": {  "en": "look", "de": "schaue" } ,
                  "function" : "action_look",
                 "description":  { "en": "" }
+                },
+                { "command": {  "en": "sleep", "de": "schlafe" } ,
+                 "function" : "action_sleep",
+                "description":  { "en": "You feel refrehed!", "de":"Du fühlst Dich erholt!" }
                 }
               ]
     
@@ -57,6 +61,9 @@ class Player(object):
     def action_say(self,a,msg):
         for p in self.room.player:
             p.send_text("\r\n"+self.name+" "+i18n(p.lang,a['description'])+" '"+msg[ len(i18n(self.lang,a['command']))+1:]+"'")
+    
+    def action_sleep(self,a,msg):
+        self.send_text(i18n(self.lang,a['description']))
     
     def action_rename(self,a,msg):
         newname = msg[ len(i18n(self.lang,a['command']))+1:]
@@ -135,13 +142,14 @@ class Player(object):
                 getattr(self,a['function'])(a,msg)
                 answered = True
 
-        if msg.startswith("sleep"):
-            self.send_text("You feel refreshed")
-            answered = True
-        
-        
         if not answered:
             answered = self.room.parse_user_command(self, msg)
         if not answered:
-            self.send_text("What you mean by '"+msg+"'")
+            self.send_text(i18n(self.lang,{ "en":"What you mean by '","de":"Was meinst Du mit '"})+msg+i18n(self.lang,{"en":"'? Remember: TAB has always been your friend!","de":"'? Erinnere Dich: TAB war schon immer Dein bester Freund!"}))
             
+    def ws_disconnect(self):
+        for p in self.room.player:
+            p.send_text(i18n(p.lang,{ "en": ""+self.name+" disconnects..." } ))
+        log.debug("player "+self.name+" disconnects.")
+        self.room.player.remove(self)
+
