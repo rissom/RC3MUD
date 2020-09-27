@@ -1,5 +1,10 @@
 
 
+var playername = new URLSearchParams(window.location.search).get("name");
+if (playername==null) {
+	window.location.href = '/index.html';
+}
+
 var current_term_line = "";        
 var actionList = ["say","rename"];
 var cHistory = [];
@@ -110,6 +115,7 @@ var ws = new WebSocket("ws://"+window.location.host+"/websocket");
 
 ws.onopen = function() {
 	ws.send( JSON.stringify( { "cmd": "ping" } ));
+	ws.send( JSON.stringify( { "cmd": "user", "data": "rename "+playername } ));
 };
 
 ws.onerror = function() {
