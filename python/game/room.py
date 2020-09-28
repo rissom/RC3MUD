@@ -33,27 +33,16 @@ class Room(object):
         
         self.capacity = -1
         self.webview = { "en": "null", "de": "null" }
-    
-    def player_leaves_room(self,player):
-        if player in self.player:
-            self.player.remove(player)
-        for p in self.player:
-            p.send_text(i18n(p.lang,{ "en": ""+player.name+" leaves the room..." } ))
-    
+        
     def get_room_command_list(self,player):
         commands = []
         for a in self.actions:
             commands.append(i18n(player.lang,a['command']))
         return commands
-                
-    def player_enters_room(self,player):
-        for p in self.player:
-            p.send_text(i18n(p.lang,{ "en": ""+player.name+" enters the room..." }))
-        self.player.append(player)
         
     def execute_action(self,player,action):
         if 'roomid' in action:
-            player.enter_room(action['roomid'])
+            player.enter_room(action)
         
     def parse_user_command(self, player, msg):
         for a in self.actions:

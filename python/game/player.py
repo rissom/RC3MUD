@@ -47,10 +47,13 @@ class Player(object):
     def __init__(self, wsclient):
         self.wsclient = wsclient
         self.name = "Bernd"
-        self.room = Room.get_room_by_id(1)
+        self.room = Room.get_room_by_id(0)
         self.lang = "en"
         
-        self.enter_room(1)
+        self.enter_room({ "command": { "en": "from nowhere"} ,
+                                           "description":  { "en": "to nowhere" },
+                                           "roomid": 1
+                                         })
     
     def send_text(self, text):
         ans = {
@@ -65,7 +68,10 @@ class Player(object):
                 Websocket.websocket_clients.remove(self.wsclient)
             except:
                 log.error("uuh, wsclient not in not in list, haeh?")
-            
+    '''
+        actions
+        
+    '''
     def action_room2json(self,a,msg):
         self.send_text("\r\n"+self.room.toJSON())
  
@@ -122,10 +128,29 @@ class Player(object):
                 "data" : commands}
         self.wsclient.write_message(ans)
         
-    def enter_room(self, roomid):
+    def enter_room(self, roomaction):
+        roomid = roomaction['roomid']
         newroom = Room.get_room_by_id(roomid)
-        self.room.player_leaves_room(self)
-        newroom.player_enters_room(self)
+        if self in self.room.player:
+            self.room.player.remove(self)
+        for p in self.room.player:
+            p.send_text(i18n(p.lang,{ "en": ""+self.name+" leaves the room..."+i18n(self.lang,roomaction['command']) } ))
+        
+        # enter the room, first notification then enter
+        enteraction = None
+        for a in newroom.actions:
+            if 'roomid' in a and a['roomid']==self.room.roomid:
+                enteraction = a
+        if enteraction is None:
+            for p in newroom.player:
+                p.send_text(i18n(p.lang,{ "en": ""+self.name+" enters the room with a puff of smoke..." }))
+        else:
+            for p in newroom.player:
+                p.send_text(i18n(p.lang,{ "en": ""+self.name+" enters the room..."+i18n(self.lang,enteraction['command']) }))
+
+        newroom.player.append(self)
+        
+        
         if len(newroom.actions) == 0:
             actionsstring = "There is nothing you can do here, sorry..."
         else:
