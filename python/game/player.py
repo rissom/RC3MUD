@@ -180,6 +180,22 @@ class Player(object):
         self.room = newroom
         self.send_player_new_command_list()
         
+        if len(self.room.player)==1:
+            self.send_text(i18n(self.lang, { "en": "You are here on your own..."}))
+        elif len(self.room.player)<10:
+            playerstr = ""
+            numberofplayers = 0
+            for p in self.room.player:
+                if p.name != self.name:
+                  playerstr = playerstr+p.name+" "
+                  numberofplayers=numberofplayers+1
+            if numberofplayers==1:
+                self.send_text(i18n(self.lang, { "en": playerstr+"is idling here..."}))
+            else:
+                self.send_text(i18n(self.lang, { "en": playerstr+"are idling here..."}))
+        else:
+            self.send_text(i18n(self.lang, { "en": "Many people are idling here..."}))
+        
     def parse_user_command(self, msg):
         answered = False
         
