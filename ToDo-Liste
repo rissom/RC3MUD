@@ -1,6 +1,13 @@
-- Sehen wer im Raum ist
+
+- Sehen wer im Raum ist: Fix disconnected
+- Datenspuren Workadventure-Leute kontaktieren
+- Webformular zum Erstellen eines Raumes
+- Remote Arduino setup
+- Whitepaper zu Remote Arduino setup
+- Punkspäti
 - Sehen in welche Richtung jemand den Raum verlässt
 - Eingangsseite (html)
+- Linux-Commmandos für die Nerds ( whoami, finger, who, man, telnet?, ssh???? Warnung! )
 - Items 
 - Eventchain (Cronjobs)
 - hosting
@@ -14,6 +21,7 @@
 - Kampfsystem für den Keller
 - Eintrittsspende
 - Raketenflug
+- Farben für unterschiedliche Meldungstypen
 
 Räume
 - Start
