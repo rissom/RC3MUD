@@ -166,7 +166,7 @@ class Player(object):
         if not answered:
             answered = self.room.parse_user_command(self, msg)
         if not answered:
-            self.send_text(i18n(self.lang,{ "en":"What you mean by '","de":"Was meinst Du mit '"})+msg+i18n(self.lang,{"en":"'? Remember: TAB has always been your friend!","de":"'? Erinnere Dich: TAB war schon immer Dein bester Freund!"}))
+            self.send_text(i18n(self.lang,{ "en":"What you mean by '","de":"Was meinst Du mit '"})+msg+i18n(self.lang,{"en":"'? Try 'help' and remember: The TAB-key has always been your friend!","de":"'? Versuche 'hilfe' und erinnere Dich: Die TAB-Taste war schon immer Dein bester Freund!"}))
             
     def ws_disconnect(self):
         for p in self.room.player:
