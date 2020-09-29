@@ -1,25 +1,53 @@
 <!doctype html>
-<html style="height:100%;">
+<html style="height: 100%;">
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet"
 	href="https://unpkg.com/xterm@4.0.0/css/xterm.css" />
 <script src="https://unpkg.com/xterm@4.0.0/lib/xterm.js"></script>
+<style>
+.d-none {
+	display: none;
+}
+</style>
 </head>
-<body style="background-color:#211c1c; height:100%; margin:0px; color:#f0f1ef;">
-	<div style="display: flex;justify-content: center;align-items:center;height:100%;min-height:100%;">
+<body
+	style="background-color: #211c1c; height: 100%; margin: 0px; color: #f0f1ef;">
+	<div style="display: flex; flex-direction:column; justify-content: center; align-items: center; height: 100%; min-height: 100%;">
 		<div>
-			Wie möchtest Du genannt werden?
-			<input id="playername" type="text" autofocus style="margin-left:1rem;">
+			Wie möchtest Du genannt werden? <input id="playername" type="text"
+				autofocus style="margin-left: 1rem;">
+				<input type="radio" id="English" name="gender" value="en" checked> <label for="English">English</label>
+				<input type="radio" id="Deutsch" name="gender" value="de"><label for="Deutsch">Deutsch</label>
+				<button id="startbutton" style="margin-left: 1rem;">Start</button>
+		</div>
+		<div style="margin: 1rem; height:1rem;">
+			<p id="name_to_short" class="d-none" style="color: red;">Name too short / Name zu kurz</p>
 		</div>
 	</div>
-<script>
-	const node = document.getElementById("playername");
-	node.addEventListener("keyup", function(event) {
-	    if (event.key === "Enter") {
-	    	window.location.href = '/game.html?name='+node.value;
-	    }
-	});
-</script>
+	<script>
+		var startgame = function() {
+			var language = "en";
+			if (document.getElementById("Deutsch").checked) {
+				language = "de";
+			}
+			var playername = document.getElementById("playername").value;
+			if (playername.length<3) {
+				document.querySelector("#name_to_short").classList.remove("d-none");
+				return;
+			}
+			window.location.href = '/game.html?name=' + playername + "&language=" + language;
+		};
+		
+		document.getElementById("playername").addEventListener("keyup", function(event) {
+			if (event.key === "Enter") {
+				startgame();
+			}
+		});
+		document.getElementById("startbutton").addEventListener("click", function(event) {
+				startgame();
+		});
+		
+	</script>
 </body>
 </html>
