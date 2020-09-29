@@ -14,12 +14,12 @@
         },
         {
             "command": {
-                "de": "gehe Norden",
-                "en": "go north"
+                "de": "gehe s\u00fcden",
+                "en": "go south"
             },
             "description": {
-                "de": "Im Norden siehtst Du den Infopoint.",
-                "en": "In the north is the tourist information."
+                "de": "Im Süden siehtst Du den Infopoint.",
+                "en": "In the south is the tourist information."
             },
             "roomid": 8
         },
