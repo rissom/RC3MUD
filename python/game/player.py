@@ -41,6 +41,11 @@ class Player(object):
                  "function" : "action_help",
                 "description":  { "en": "try 'help <command>'... Use TAB key to see/extend commands.", "de":"versuche 'hilfe <Kommando>'... Benutze die Tabulatortaste, um Kommandos zu sehen und zu ergänzen." },
                 "help": { "de": "Setz Dich und nimm Dir nen Keks!", "en": "Have a cookie." }
+                },
+                { "command": {  "en": "language", "de": "Sprache" } ,
+                 "function" : "action_language",
+                "description":  { "en": "Your language is set to English now.", "de": "Deine Sprache ist jetzt auf Deutsch eingestellt." },
+                "help": { "de": "Setzt die Sprache ( de oder en )", "en": "sets your language.( de or en )." }
                 }
               ]
     
@@ -72,17 +77,25 @@ class Player(object):
         actions
         
     '''
-    def action_room2json(self,a,msg):
+    def action_room2json(self,a,msg,parameter):
         self.send_text("\r\n"+self.room.toJSON())
+    
+    def action_language(self,a,msg,parameter):
+        if parameter=="en":
+            self.lang = "en"
+        if parameter=="de":
+            self.lang = "de"
+        self.send_player_new_command_list()
+        self.send_text(i18n(self.lang,a['description']))
  
-    def action_say(self,a,msg):
+    def action_say(self,a,msg,parameter):
         for p in self.room.player:
             p.send_text(self.name+" "+i18n(p.lang,a['description'])+" '"+msg[ len(i18n(self.lang,a['command']))+1:]+"'")
     
-    def action_sleep(self,a,msg):
+    def action_sleep(self,a,msg,parameter):
         self.send_text(i18n(self.lang,a['description']))
         
-    def action_help(self,a,msg):
+    def action_help(self,a,msg,parameter):
         if len(msg.split())<2:
             self.send_text(i18n(self.lang,a['description']))
             return
@@ -91,7 +104,7 @@ class Player(object):
                 self.send_text(i18n(self.lang,a['help']))
                 return
     
-    def action_rename(self,a,msg):
+    def action_rename(self,a,msg,parameter):
         newname = msg[ len(i18n(self.lang,a['command']))+1:]
         if len(newname)<3:
             self.send_text(i18n(self.lang,{ "en":"Thats to short...", "de": "Das ist zu kurz..."}))
@@ -101,10 +114,10 @@ class Player(object):
             p.send_text(self.name+" "+i18n(p.lang,a['description'])+" '"+newname+"'")
         self.name = newname
        
-    def action_whoami(self,a,msg):
+    def action_whoami(self,a,msg,parameter):
         self.send_text("You are "+self.name)
         
-    def action_look(self,a,msg):
+    def action_look(self,a,msg,parameter):
         if len(self.room.actions) == 0:
             actionsstring = "There is nothing you can do here, sorry..."
         else:
@@ -152,7 +165,7 @@ class Player(object):
         
         
         if len(newroom.actions) == 0:
-            actionsstring = "There is nothing you can do here, sorry..."
+            actionsstring = i18n(self.lang, { "en": "There is nothing you can do here, sorry...", "de": "Hier kannst Du leider nichts tun..."})
         else:
             actionsstring = ""
             for a in newroom.actions:
@@ -181,7 +194,7 @@ class Player(object):
         self.send_player_new_command_list()
         
         if len(self.room.player)==1:
-            self.send_text(i18n(self.lang, { "en": "You are here on your own..."}))
+            self.send_text(i18n(self.lang, { "en": "You are here on your own...", "de": "Du bist hier ganz alleine..."}))
         elif len(self.room.player)<10:
             playerstr = ""
             numberofplayers = 0
@@ -201,7 +214,8 @@ class Player(object):
         
         for a in Player.actions:
             if msg.startswith(i18n(self.lang,a['command'])):
-                getattr(self,a['function'])(a,msg)
+                parameter = msg[ len(i18n(self.lang,a['command']))+1:]
+                getattr(self,a['function'])(a,msg, parameter)
                 answered = True
 
         if not answered:
