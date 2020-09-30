@@ -52,13 +52,14 @@ class Player(object):
     def __init__(self, wsclient):
         self.wsclient = wsclient
         self.name = "Bernd"
-        self.room = Room.get_room_by_id(0)
+        self.room = Room.get_room_by_id(1)
+        self.room.player.append(self)
         self.lang = "en"
         
-        self.enter_room({ "command": { "en": "from nowhere"} ,
-                                           "description":  { "en": "to nowhere" },
-                                           "roomid": 1
-                                         })
+#        self.enter_room({ "command": { "en": "from nowhere"} ,
+#                                           "description":  { "en": "to nowhere" },
+#                                           "roomid": 1
+#                                         })
     
     def send_text(self, text):
         ans = {
@@ -118,14 +119,9 @@ class Player(object):
         self.send_text("You are "+self.name)
         
     def action_look(self,a,msg,parameter):
-        if len(self.room.actions) == 0:
-            actionsstring = "There is nothing you can do here, sorry..."
-        else:
-            actionsstring = ""
-            for a in self.room.actions:
-                actionsstring = actionsstring + i18n(self.lang, a['description'])+"\r\n"
-                
-        self.send_text("\r\n"+i18n(self.lang,self.room.description)+"\r\n"+actionsstring)
+        self.send_room_actions(self.room)
+        self.send_player_new_command_list()
+        self.send_other_players_in_room(self.room)
         
     def send_player_new_command_list(self):
         commands = []
@@ -140,8 +136,54 @@ class Player(object):
                 "type": "room",
                 "data" : commands}
         self.wsclient.write_message(ans)
-        
+    
+    def send_room_actions(self,room):
+        if len(room.actions) == 0:
+            actionsstring = i18n(self.lang, { "en": "There is nothing you can do here, sorry...", "de": "Hier kannst Du leider nichts tun..."})
+        else:
+            actionsstring = ""
+            for a in room.actions:
+                actionsstring = actionsstring + i18n(self.lang, a['description'])+"\r\n"
+                
+        self.send_text("\r\n\r\n"+i18n(self.lang,room.description)+"\r\n"+actionsstring)
+        ans = {
+              "cmd": "html",
+              "data": i18n(self.lang,room.webview)
+            }
+        self.wsclient.write_message(ans)
+        if  room.videoview:
+            ans = {
+              "cmd": "video",
+              "enabled": True,
+              "data": i18n(self.lang,room.videoview)
+            }
+            self.wsclient.write_message(ans)
+        else:
+            ans = {
+              "cmd": "video",
+              "enabled": False
+            }
+            self.wsclient.write_message(ans)
+            
+    def send_other_players_in_room(self,room):
+        if len(room.player)==1:
+            self.send_text(i18n(self.lang, { "en": "You are here on your own...", "de": "Du bist hier ganz alleine..."}))
+        elif len(room.player)<10:
+            playerstr = ""
+            numberofplayers = 0
+            for p in room.player:
+                if p.name != self.name:
+                  playerstr = playerstr+p.name+" "
+                  numberofplayers=numberofplayers+1
+            if numberofplayers==1:
+                self.send_text(i18n(self.lang, { "en": playerstr+"is idling here..."}))
+            else:
+                self.send_text(i18n(self.lang, { "en": playerstr+"are idling here..."}))
+        else:
+            self.send_text(i18n(self.lang, { "en": "Many people are idling here..."}))
+            
     def enter_room(self, roomaction):
+        
         roomid = roomaction['roomid']
         newroom = Room.get_room_by_id(roomid)
         if self in self.room.player:
@@ -163,53 +205,13 @@ class Player(object):
 
         newroom.player.append(self)
         
-        
-        if len(newroom.actions) == 0:
-            actionsstring = i18n(self.lang, { "en": "There is nothing you can do here, sorry...", "de": "Hier kannst Du leider nichts tun..."})
-        else:
-            actionsstring = ""
-            for a in newroom.actions:
-                actionsstring = actionsstring + i18n(self.lang, a['description'])+"\r\n"
-                
-        self.send_text("\r\n\r\n"+i18n(self.lang,newroom.description)+"\r\n"+actionsstring)
-        ans = {
-              "cmd": "html",
-              "data": i18n(self.lang,newroom.webview)
-            }
-        self.wsclient.write_message(ans)
-        if  newroom.videoview:
-            ans = {
-              "cmd": "video",
-              "enabled": True,
-              "data": i18n(self.lang,newroom.videoview)
-            }
-            self.wsclient.write_message(ans)
-        else:
-            ans = {
-              "cmd": "video",
-              "enabled": False
-            }
-            self.wsclient.write_message(ans)
+        self.send_room_actions(newroom)
         self.room = newroom
         self.send_player_new_command_list()
-        
-        if len(self.room.player)==1:
-            self.send_text(i18n(self.lang, { "en": "You are here on your own...", "de": "Du bist hier ganz alleine..."}))
-        elif len(self.room.player)<10:
-            playerstr = ""
-            numberofplayers = 0
-            for p in self.room.player:
-                if p.name != self.name:
-                  playerstr = playerstr+p.name+" "
-                  numberofplayers=numberofplayers+1
-            if numberofplayers==1:
-                self.send_text(i18n(self.lang, { "en": playerstr+"is idling here..."}))
-            else:
-                self.send_text(i18n(self.lang, { "en": playerstr+"are idling here..."}))
-        else:
-            self.send_text(i18n(self.lang, { "en": "Many people are idling here..."}))
+        self.send_other_players_in_room(self.room)
         
     def parse_user_command(self, msg):
+        
         answered = False
         
         for a in Player.actions:

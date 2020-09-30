@@ -4,6 +4,10 @@ var playername = new URLSearchParams(window.location.search).get("name");
 if (playername==null) {
 	window.location.href = '/index.html';
 }
+var language = new URLSearchParams(window.location.search).get("language");
+if (language==null || language!="de")  {
+	language="en";
+}
 
 var current_term_line = "";        
 var actionList = ["say","rename"];
@@ -134,8 +138,14 @@ function clearLine(term){
 var ws = new WebSocket("ws://"+window.location.host+"/websocket");
 
 ws.onopen = function() {
-	ws.send( JSON.stringify( { "cmd": "ping" } ));
-	ws.send( JSON.stringify( { "cmd": "user", "data": "rename "+playername } ));
+	ws.send( JSON.stringify( { "cmd": "user", "data":"language "+language } ));
+	if (language == "de") {
+		ws.send( JSON.stringify( { "cmd": "user", "data": "umbenennen "+playername  } ));
+		ws.send( JSON.stringify( { "cmd": "user", "data": "schaue"  } ));
+	} else {
+		ws.send( JSON.stringify( { "cmd": "user", "data": "rename "+playername  } ));
+		ws.send( JSON.stringify( { "cmd": "user", "data": "look"  } ));
+	}
 };
 
 ws.onerror = function() {
