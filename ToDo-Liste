@@ -1,21 +1,22 @@
-- Sehen wer im Raum ist
-- Sehen in welche Richtung jemand den Raum verlässt
-- Eingangsseite (html)
+ToDo:
 - Items 
 - Eventchain (Cronjobs)
-- hosting
 - Inventory 
-- Userverwaltung (Passwörter, Userdaten, eigene Description, Level, Punkte, etc)
-- Videofenster
-- Mehr Räume
-- Taberweiterung (Doppeltab, Vervollständigung  bis unklare Stelle bei Mehrdeutigkeit )
+- Userverwaltung (Passwörter, Userdaten, Gruppen, eigene Description, Level, Punkte, etc)
 - NPCs
 - Aliase
 - Kampfsystem für den Keller
-- Eintrittsspende
 - Raketenflug
+- HTML Formular, um Räume zu erzeugen
 
-Räume
-- Start
-- vor dem Kongresszentrum
-- 
+Sonstiges:
+- hosting
+- Mehr Räume
+- Eintrittsspende
+
+Done:
+- Sehen wer im Raum ist
+- Sehen in welche Richtung jemand den Raum verlässt
+- Eingangsseite (html)
+- Videofenster
+- Taberweiterung (Doppeltab, Vervollständigung  bis unklare Stelle bei Mehrdeutigkeit )
