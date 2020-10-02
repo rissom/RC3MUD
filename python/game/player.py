@@ -176,11 +176,11 @@ class Player(object):
                   playerstr = playerstr+p.name+" "
                   numberofplayers=numberofplayers+1
             if numberofplayers==1:
-                self.send_text(i18n(self.lang, { "en": playerstr+"is idling here..."}))
+                self.send_text(i18n(self.lang, { "en": playerstr+"is idling here...", "de": playerstr+"steht hier rum..."}))
             else:
-                self.send_text(i18n(self.lang, { "en": playerstr+"are idling here..."}))
+                self.send_text(i18n(self.lang, { "en": playerstr+"are idling here...","dn": playerstr+"stehen hier rum..."}))
         else:
-            self.send_text(i18n(self.lang, { "en": "Many people are idling here..."}))
+            self.send_text(i18n(self.lang, { "en": "Many people are idling here...", "de": "Ein Haufen Leute steht hier rum..."}))
             
     def enter_room(self, roomaction):
         
