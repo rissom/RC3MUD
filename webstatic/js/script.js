@@ -134,7 +134,7 @@ function clearLine(term){
   } 
 }
         
-if (windows.location.protocol=="https:") {
+if (window.location.protocol=="https:") {
 	var ws = new WebSocket("wss://"+window.location.host+"/websocket");
 } else {
 	var ws = new WebSocket("ws://"+window.location.host+"/websocket");
