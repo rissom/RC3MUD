@@ -134,9 +134,11 @@ function clearLine(term){
   } 
 }
         
-        
-var ws = new WebSocket("ws://"+window.location.host+"/websocket");
-
+if (windows.location.protocol=="https:") {
+	var ws = new WebSocket("wss://"+window.location.host+"/websocket");
+} else {
+	var ws = new WebSocket("ws://"+window.location.host+"/websocket");
+}
 ws.onopen = function() {
 	ws.send( JSON.stringify( { "cmd": "user", "data":"language "+language } ));
 	if (language == "de") {
