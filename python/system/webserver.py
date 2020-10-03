@@ -21,15 +21,22 @@ class Webserver(tornado.web.Application):
     
     def __init__(self):
         from system.websocket import Websocket
+        from system.websocketrtc import WebsocketRTC
         handlers = [ (r"/upload", UploadHandler),
                      (r"/download", GetConfigHandler),
                      (r"/websocket", Websocket),
+                     (r"/websocketrtc", WebsocketRTC),
                      (r'/(.*)', tornado.web.StaticFileHandler, {'path': '../webstatic', "default_filename": "index.html"}),]
         settings = {'debug': True}
         super().__init__(handlers, **settings)
 
     def run(self, port=80):
         self.listen(port)
+        if os.path.exists("../../fullchain.pem"):
+            self.listen(port+1,ssl_options={
+                "certfile": "../../fullchain.pem",
+                "keyfile": "../../privkey.pem",
+            })
         Webserver.main_loop = tornado.ioloop.IOLoop().current()
         Webserver.main_loop.start()
         print("Webserver: TORNADO STARTED")

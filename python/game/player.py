@@ -41,19 +41,25 @@ class Player(object):
                  "function" : "action_help",
                 "description":  { "en": "try 'help <command>'... Use TAB key to see/extend commands.", "de":"versuche 'hilfe <Kommando>'... Benutze die Tabulatortaste, um Kommandos zu sehen und zu ergänzen." },
                 "help": { "de": "Setz Dich und nimm Dir nen Keks!", "en": "Have a cookie." }
+                },
+                { "command": {  "en": "language", "de": "Sprache" } ,
+                 "function" : "action_language",
+                "description":  { "en": "Your language is set to English now.", "de": "Deine Sprache ist jetzt auf Deutsch eingestellt." },
+                "help": { "de": "Setzt die Sprache ( de oder en )", "en": "sets your language.( de or en )." }
                 }
               ]
     
     def __init__(self, wsclient):
         self.wsclient = wsclient
         self.name = "Bernd"
-        self.room = Room.get_room_by_id(0)
+        self.room = Room.get_room_by_id(1)
+        self.room.player.append(self)
         self.lang = "en"
         
-        self.enter_room({ "command": { "en": "from nowhere"} ,
-                                           "description":  { "en": "to nowhere" },
-                                           "roomid": 1
-                                         })
+#        self.enter_room({ "command": { "en": "from nowhere"} ,
+#                                           "description":  { "en": "to nowhere" },
+#                                           "roomid": 1
+#                                         })
     
     def send_text(self, text):
         ans = {
@@ -72,17 +78,25 @@ class Player(object):
         actions
         
     '''
-    def action_room2json(self,a,msg):
+    def action_room2json(self,a,msg,parameter):
         self.send_text("\r\n"+self.room.toJSON())
+    
+    def action_language(self,a,msg,parameter):
+        if parameter=="en":
+            self.lang = "en"
+        if parameter=="de":
+            self.lang = "de"
+        self.send_player_new_command_list()
+        self.send_text(i18n(self.lang,a['description']))
  
-    def action_say(self,a,msg):
+    def action_say(self,a,msg,parameter):
         for p in self.room.player:
             p.send_text(self.name+" "+i18n(p.lang,a['description'])+" '"+msg[ len(i18n(self.lang,a['command']))+1:]+"'")
     
-    def action_sleep(self,a,msg):
+    def action_sleep(self,a,msg,parameter):
         self.send_text(i18n(self.lang,a['description']))
         
-    def action_help(self,a,msg):
+    def action_help(self,a,msg,parameter):
         if len(msg.split())<2:
             self.send_text(i18n(self.lang,a['description']))
             return
@@ -91,7 +105,7 @@ class Player(object):
                 self.send_text(i18n(self.lang,a['help']))
                 return
     
-    def action_rename(self,a,msg):
+    def action_rename(self,a,msg,parameter):
         newname = msg[ len(i18n(self.lang,a['command']))+1:]
         if len(newname)<3:
             self.send_text(i18n(self.lang,{ "en":"Thats to short...", "de": "Das ist zu kurz..."}))
@@ -101,18 +115,13 @@ class Player(object):
             p.send_text(self.name+" "+i18n(p.lang,a['description'])+" '"+newname+"'")
         self.name = newname
        
-    def action_whoami(self,a,msg):
+    def action_whoami(self,a,msg,parameter):
         self.send_text("You are "+self.name)
         
-    def action_look(self,a,msg):
-        if len(self.room.actions) == 0:
-            actionsstring = "There is nothing you can do here, sorry..."
-        else:
-            actionsstring = ""
-            for a in self.room.actions:
-                actionsstring = actionsstring + i18n(self.lang, a['description'])+"\r\n"
-                
-        self.send_text("\r\n"+i18n(self.lang,self.room.description)+"\r\n"+actionsstring)
+    def action_look(self,a,msg,parameter):
+        self.send_room_actions(self.room)
+        self.send_player_new_command_list()
+        self.send_other_players_in_room(self.room)
         
     def send_player_new_command_list(self):
         commands = []
@@ -127,8 +136,54 @@ class Player(object):
                 "type": "room",
                 "data" : commands}
         self.wsclient.write_message(ans)
-        
+    
+    def send_room_actions(self,room):
+        if len(room.actions) == 0:
+            actionsstring = i18n(self.lang, { "en": "There is nothing you can do here, sorry...", "de": "Hier kannst Du leider nichts tun..."})
+        else:
+            actionsstring = ""
+            for a in room.actions:
+                actionsstring = actionsstring + i18n(self.lang, a['description'])+"\r\n"
+                
+        self.send_text("\r\n\r\n"+i18n(self.lang,room.description)+"\r\n"+actionsstring)
+        ans = {
+              "cmd": "html",
+              "data": i18n(self.lang,room.webview)
+            }
+        self.wsclient.write_message(ans)
+        if  room.videoview:
+            ans = {
+              "cmd": "video",
+              "enabled": True,
+              "data": i18n(self.lang,room.videoview)
+            }
+            self.wsclient.write_message(ans)
+        else:
+            ans = {
+              "cmd": "video",
+              "enabled": False
+            }
+            self.wsclient.write_message(ans)
+            
+    def send_other_players_in_room(self,room):
+        if len(room.player)==1:
+            self.send_text(i18n(self.lang, { "en": "You are here on your own...", "de": "Du bist hier ganz alleine..."}))
+        elif len(room.player)<10:
+            playerstr = ""
+            numberofplayers = 0
+            for p in room.player:
+                if p.name != self.name:
+                  playerstr = playerstr+p.name+" "
+                  numberofplayers=numberofplayers+1
+            if numberofplayers==1:
+                self.send_text(i18n(self.lang, { "en": playerstr+"is idling here...", "de": playerstr+"steht hier rum..."}))
+            else:
+                self.send_text(i18n(self.lang, { "en": playerstr+"are idling here...","dn": playerstr+"stehen hier rum..."}))
+        else:
+            self.send_text(i18n(self.lang, { "en": "Many people are idling here...", "de": "Ein Haufen Leute steht hier rum..."}))
+            
     def enter_room(self, roomaction):
+        
         roomid = roomaction['roomid']
         newroom = Room.get_room_by_id(roomid)
         if self in self.room.player:
@@ -150,58 +205,19 @@ class Player(object):
 
         newroom.player.append(self)
         
-        
-        if len(newroom.actions) == 0:
-            actionsstring = "There is nothing you can do here, sorry..."
-        else:
-            actionsstring = ""
-            for a in newroom.actions:
-                actionsstring = actionsstring + i18n(self.lang, a['description'])+"\r\n"
-                
-        self.send_text("\r\n\r\n"+i18n(self.lang,newroom.description)+"\r\n"+actionsstring)
-        ans = {
-              "cmd": "html",
-              "data": i18n(self.lang,newroom.webview)
-            }
-        self.wsclient.write_message(ans)
-        if  newroom.videoview:
-            ans = {
-              "cmd": "video",
-              "enabled": True,
-              "data": i18n(self.lang,newroom.videoview)
-            }
-            self.wsclient.write_message(ans)
-        else:
-            ans = {
-              "cmd": "video",
-              "enabled": False
-            }
-            self.wsclient.write_message(ans)
+        self.send_room_actions(newroom)
         self.room = newroom
         self.send_player_new_command_list()
-        
-        if len(self.room.player)==1:
-            self.send_text(i18n(self.lang, { "en": "You are here on your own..."}))
-        elif len(self.room.player)<10:
-            playerstr = ""
-            numberofplayers = 0
-            for p in self.room.player:
-                if p.name != self.name:
-                  playerstr = playerstr+p.name+" "
-                  numberofplayers=numberofplayers+1
-            if numberofplayers==1:
-                self.send_text(i18n(self.lang, { "en": playerstr+"is idling here..."}))
-            else:
-                self.send_text(i18n(self.lang, { "en": playerstr+"are idling here..."}))
-        else:
-            self.send_text(i18n(self.lang, { "en": "Many people are idling here..."}))
+        self.send_other_players_in_room(self.room)
         
     def parse_user_command(self, msg):
+        
         answered = False
         
         for a in Player.actions:
             if msg.startswith(i18n(self.lang,a['command'])):
-                getattr(self,a['function'])(a,msg)
+                parameter = msg[ len(i18n(self.lang,a['command']))+1:]
+                getattr(self,a['function'])(a,msg, parameter)
                 answered = True
 
         if not answered:
