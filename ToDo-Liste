@@ -1,4 +1,17 @@
+<<<<<<< HEAD
+
+- Sehen wer im Raum ist: Fix disconnected
+- Datenspuren Workadventure-Leute kontaktieren
+- Webformular zum Erstellen eines Raumes
+- Remote Arduino setup
+- Whitepaper zu Remote Arduino setup
+- Punkspäti
+- Sehen in welche Richtung jemand den Raum verlässt
+- Eingangsseite (html)
+- Linux-Commmandos für die Nerds ( whoami, finger, who, man, telnet?, ssh???? Warnung! )
+=======
 ToDo:
+>>>>>>> ba9d07c4c32b818aef96af0dcb608a6bf4a6237f
 - Items 
 - Eventchain (Cronjobs)
 - Inventory 
@@ -7,7 +20,11 @@ ToDo:
 - Aliase
 - Kampfsystem für den Keller
 - Raketenflug
+<<<<<<< HEAD
+- Farben für unterschiedliche Meldungstypen
+=======
 - HTML Formular, um Räume zu erzeugen
+>>>>>>> ba9d07c4c32b818aef96af0dcb608a6bf4a6237f
 
 Sonstiges:
 - hosting

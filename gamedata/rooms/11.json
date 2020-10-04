@@ -16,16 +16,15 @@
     "name": "lounge",
     "description": {
         "en": "You are in the lounge area.",
-        "de": "Du befindest dich iin der Lounge."
+        "de": "Du befindest dich in der Lounge."
     },
     "items": [],
     "capacity": -1,
     "webview": {
-        "en": "<img src='http://unidaplan.com/nouveau-rabumms.jpg' width=400  />",
-        "de": "<img src='http://unidaplan.com/nouveau-rabumms.jpg' width=400  />"
+        "en": "<img src='https://thorstenrissom.eu/nouveau-rabumms.jpg' width=400  />"
     },
     "videoview": {
-        "en": "<iframe width='100%' height='225' scrolling='no' frameborder='no' allow='autoplay' src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/736857496&color=%23352923&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true'></iframe><div style='font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;'><a href='https://soundcloud.com/minmon_kollektiv' title='MinMon Kollektiv' target='_blank' style='color: #cccccc; text-decoration: none;'>MinMon Kollektiv</a> · <a href='https://soundcloud.com/minmon_kollektiv/mr-galonga-36c3-furo-no-ba-place-of-the-vagabond' title='Mr. Galonga @ 36c3 Furō no ba (Place of the Vagabond)' target='_blank' style='color: #cccccc; text-decoration: none;'>Mr. Galonga @ 36c3 Furō no ba (Place of the Vagabond)</a></div>"               
+        "en": "<iframe width='100%' height='225' scrolling='no' frameborder='no' allow='autoplay' src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/736857496&color=%23352923&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true'></iframe><div style='font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;'><a href='https://soundcloud.com/minmon_kollektiv' title='MinMon Kollektiv' target='_blank' style='color: #cccccc; text-decoration: none;'>MinMon Kollektiv</a> · <a href='https://soundcloud.com/minmon_kollektiv/mr-galonga-36c3-furo-no-ba-place-of-the-vagabond' title='Mr. Galonga @ 36c3 Furō no ba (Place of the Vagabond)' target='_blank' style='color: #cccccc; text-decoration: none;'>Mr. Galonga @ 36c3 Furō no ba (Place of the Vagabond)</a></div>"
     }    
     
 }
