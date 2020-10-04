@@ -11,6 +11,7 @@ import tornado.web
 import tornado.websocket
 import json
 import datetime
+from system.log import log
 
 
 
@@ -31,8 +32,10 @@ class Webserver(tornado.web.Application):
         super().__init__(handlers, **settings)
 
     def run(self, port=80):
+        log.debug("Webserver: listen to http port: "+str(port))
         self.listen(port)
         if os.path.exists("../../fullchain.pem"):
+            log.debug("Webserver: listen to https port: "+str(port+1))
             self.listen(port+1,ssl_options={
                 "certfile": "../../fullchain.pem",
                 "keyfile": "../../privkey.pem",
