@@ -39,17 +39,14 @@ class Websocket(tornado.websocket.WebSocketHandler):
         #Websocket.websocket_send(self,json.dumps(ans),False)
                  
     def on_message(self, message):
-        # process json messages
-        jsonmsg = json.loads(message)
+        try:
+            jsonmsg = json.loads(message)
+        except:
+            log.error("Websocket: json error in user data...")
+            return
         log.debug("Websocket: received message: "+str(jsonmsg))
-        
-        if jsonmsg['cmd']=='ping':
-            ans = {
-              "cmd": "pong",
-            }
-            self.write_message(json.dumps(ans))
-        elif jsonmsg['cmd']=='user':
-            self.player.parse_user_command(jsonmsg['data'])
+        from system.parser import Parser
+        Parser.parse_user_command(self, jsonmsg)
         
             
     def on_close(self):
