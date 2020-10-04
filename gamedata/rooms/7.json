@@ -1,5 +1,6 @@
 {
     "roomid": 7,
+    "areaid":2,
     "actions": [
         {
             "command": {

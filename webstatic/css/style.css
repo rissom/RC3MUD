@@ -33,7 +33,9 @@ font-size: 10px;
 #terminal {
 	padding-top: 2rem;
 }
-
+#roomeditor {
+	color: lightgrey;
+}
 #webview {
 	padding: 0.5rem;
 	color: lightgrey;

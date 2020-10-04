@@ -2,7 +2,7 @@ import json
 from system.serializer import Serializer
 from system.log import log
 from system.helper import i18n
-
+from game.area import Area
 
 class Room(object):
     
@@ -20,7 +20,7 @@ class Room(object):
     
     def __init__(self, roomid):
         self.roomid = roomid
-        self.area = None    # area object to determine admins
+        self.areaid = 0    # area object to determine admins
         self.player = []  # player in this room
         self.actions = [ { "command": {} ,
                            "description":  {  },
@@ -50,9 +50,27 @@ class Room(object):
             if msg.startswith(i18n(player.lang,a['command'])):
                 self.execute_action(player,a)
                 return True
+        if msg.startswith("roomeditor"):
+            if Area.get_area_by_id(self.areaid).are_ids_in_chain(player.admin_for_area):
+                data = { "roomid" : self.roomid,
+                   "areaid": self.areaid,
+                   "actions" : self.actions,
+                   "name" : self.name,
+                   "description" : self.description,
+                   "items" : self.items,
+                   "capacity" : self.capacity,
+                   "webview" : self.webview,
+                   "videoview" : self.videoview
+                 }
+                ans = { "cmd": "editroom",
+                       "data": data }
+                player.wsclient.write_message(ans)
+                return True
         return False
         
     def fromJSON(self, json):
+        
+        self.areaid = json["areaid"]
         self.description = json["description"]
         self.actions = json["actions"]
         self.name = json["name"]
@@ -65,6 +83,7 @@ class Room(object):
         
     def toJSON(self):
         ans = { "roomid" : self.roomid,
+               "areaid": self.areaid,
                "actions" : self.actions,
                "name" : self.name,
                "description" : self.description,

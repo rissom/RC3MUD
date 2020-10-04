@@ -26,6 +26,24 @@ class Serializer(object):
             room.fromJSON(jsonobj)
         return room
     
-    
+    def get_area(areaid):
+        filename = Config.workingpath+"/areas/" + str(areaid)+".json"
+        if not os.path.exists(filename):
+            log.error("Serializer: area does not exists: id: "+str(areaid)+" "+filename)
+            from game.area import Area
+            return Area(areaid)
+        areafile = open(filename, 'r')
+        filecontent = areafile.read()
+        try:
+            jsonobj = json.loads(filecontent)
+        except:
+            log.error("Serializer: JSON error: id: "+str(areaid)+" "+filename)
+            jsonobj = False
+        log.debug("Serializer: loading area: id: "+str(areaid)+" "+str(jsonobj))
+        from game.area import Area
+        area = Area(areaid)
+        if not jsonobj==False:
+            area.fromJSON(jsonobj)
+        return area
         
         

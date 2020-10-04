@@ -23,4 +23,6 @@ class Parser(object):
             if not answered:
                 wsclient.player.send_text(i18n(lang,{ "en":"What you mean by '","de":"Was meinst Du mit '"})+msg+i18n(lang,{"en":"'? Try 'help' and remember: The TAB-key has always been your friend!","de":"'? Versuche 'hilfe' und erinnere Dich: Die TAB-Taste war schon immer Dein bester Freund!"}))
 
-    
+        elif jsonmsg['cmd']=='getroom':
+            wsclient.write_message(wsclient.player.room.toJSON)
+        

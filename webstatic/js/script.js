@@ -198,6 +198,13 @@ ws.onmessage = function (message) {
     // filter out everything that is included in the remove list: Not yet tested!
     newActionList = actionList.filter ( a =>  !msg.data.includes(a));  
   }
+  if (msg.cmd=="isroomadmin") {
+	  window.isroomadmin = msg.data;
+  }
+  if (msg.cmd=="editroom") {
+	  document.querySelector("#terminal").classList.add("d-none");
+	  document.querySelector("#roomeditor").classList.remove("d-none");
+  }
 	
 }
 

@@ -4,6 +4,7 @@ import tornado
 from game.room import Room
 from system.helper import i18n
 from system.log import log
+from game.area import Area
 
 class Player(object):
     
@@ -51,11 +52,12 @@ class Player(object):
     
     def __init__(self, wsclient):
         self.wsclient = wsclient
+        self.id = 1
         self.name = "Bernd"
         self.room = Room.get_room_by_id(1)
         self.room.player.append(self)
         self.lang = "en"
-        self.admin_for_area = []
+        self.admin_for_area = [3]
         
   
     def send_text(self, text):
@@ -119,6 +121,11 @@ class Player(object):
         self.send_room_actions(self.room)
         self.send_player_new_command_list()
         self.send_other_players_in_room(self.room)
+    
+    def send_is_room_admin(self):
+        ans = { "cmd" : "isroomadmin",
+                "data" : Area.get_area_by_id(self.room.areaid).are_ids_in_chain(self.admin_for_area) }
+        self.wsclient.write_message(ans)
         
     def send_player_new_command_list(self):
         commands = []
@@ -206,6 +213,7 @@ class Player(object):
         self.room = newroom
         self.send_player_new_command_list()
         self.send_other_players_in_room(self.room)
+        self.send_is_room_admin()
            
     def ws_disconnect(self):
         for p in self.room.player:
@@ -213,3 +221,18 @@ class Player(object):
         log.debug("player "+self.name+" disconnects.")
         self.room.player.remove(self)
 
+    def fromJSON(self, json):
+        self.id = json["id"]
+        self.roomid = json["roomid"]
+        self.lang = json["language"]
+        self.name = json["name"]
+        self.admin_for_area = json["adminforarea"]
+        
+    def toJSON(self):
+        ans = { "id" : self.id,
+               "roomid": self.room.roomid,
+               "language" : self.lang,
+               "name" : self.name,
+               "adminforarea" : self.admin_for_area
+             }
+        return json.dumps(ans,indent=4).replace('\n', '\r\n')

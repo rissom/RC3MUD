@@ -1,6 +1,18 @@
 {
     "roomid": 4,
+    "areaid":2,
     "actions": [
+    	{
+            "command": {
+                "de": "gehe norden",
+                "en": "go north"
+            },
+            "description": {
+                "de": "Im Norden scheint der Spielplatz zu sein.",
+                "en": "Looks like the playground in the north."
+            },
+            "roomid": 12
+        },
         {
             "command": {
                 "de": "gehe westen",

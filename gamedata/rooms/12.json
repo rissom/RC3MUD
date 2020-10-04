@@ -1,0 +1,27 @@
+{
+    "roomid": 12,
+    "areaid":3,
+    "actions": [
+        {
+            "command": {
+                "de": "gehe süden",
+                "en": "go south"
+            },
+            "description": {
+                "de": "Im Süden befindet sich die Haupthalle'.",
+                "en": "In the south is the main hall."
+            },
+            "roomid": 4
+        }
+    ],
+    "name": "playground_start",
+    "description": {
+        "en": "You are at the entrance of the playground. Here you can fool around...",
+        "de": "Du befindest dich am Eingang des Spielplatzes. Hier kannst Du rumspielen..."
+    },
+    "items": [],
+    "capacity": -1,
+    "webview": {
+        "en": "<p>try to change this text...</p>"
+    }
+}
