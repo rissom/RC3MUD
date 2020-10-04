@@ -55,12 +55,9 @@ class Player(object):
         self.room = Room.get_room_by_id(1)
         self.room.player.append(self)
         self.lang = "en"
+        self.admin_for_area = []
         
-#        self.enter_room({ "command": { "en": "from nowhere"} ,
-#                                           "description":  { "en": "to nowhere" },
-#                                           "roomid": 1
-#                                         })
-    
+  
     def send_text(self, text):
         ans = {
               "cmd": "text",
@@ -209,22 +206,7 @@ class Player(object):
         self.room = newroom
         self.send_player_new_command_list()
         self.send_other_players_in_room(self.room)
-        
-    def parse_user_command(self, msg):
-        
-        answered = False
-        
-        for a in Player.actions:
-            if msg.startswith(i18n(self.lang,a['command'])):
-                parameter = msg[ len(i18n(self.lang,a['command']))+1:]
-                getattr(self,a['function'])(a,msg, parameter)
-                answered = True
-
-        if not answered:
-            answered = self.room.parse_user_command(self, msg)
-        if not answered:
-            self.send_text(i18n(self.lang,{ "en":"What you mean by '","de":"Was meinst Du mit '"})+msg+i18n(self.lang,{"en":"'? Try 'help' and remember: The TAB-key has always been your friend!","de":"'? Versuche 'hilfe' und erinnere Dich: Die TAB-Taste war schon immer Dein bester Freund!"}))
-            
+           
     def ws_disconnect(self):
         for p in self.room.player:
             p.send_text(i18n(p.lang,{ "en": ""+self.name+" disconnects..." } ))

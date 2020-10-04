@@ -20,6 +20,7 @@ class Room(object):
     
     def __init__(self, roomid):
         self.roomid = roomid
+        self.area = None    # area object to determine admins
         self.player = []  # player in this room
         self.actions = [ { "command": {} ,
                            "description":  {  },

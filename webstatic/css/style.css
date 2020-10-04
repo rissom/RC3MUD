@@ -3,6 +3,9 @@
 	display: none;
 }
 
+html, body {
+	height: 100%;
+}
 body {
 	font-family: sans-serif;
 }
@@ -15,8 +18,20 @@ p.caption {
 font-size: 10px;
 }
 
+#gamecontainer {
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: strech;
+	min-height:100%
+}
+#iframecontainer {
+	height: 100%;
+	width: 45%;
+}
 #terminal {
-	padding-top: 0.5rem;
+	padding-top: 2rem;
 }
 
 #webview {
