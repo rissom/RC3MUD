@@ -213,7 +213,18 @@ ws.onmessage = function (message) {
           "description_en" : roomData.description.en,
           "description_de" : roomData.description.de
         }
-      }
+      },
+      methods: {
+    	  	save_room() {
+    	    	console.log("save_room");
+    	    },
+    	    
+    	    cancel_edit() {
+    	    	console.log("cancel_edit");
+    	    	document.querySelector("#terminal").classList.remove("d-none");
+    	  	  	document.querySelector("#roomeditor").classList.add("d-none");
+    	    }
+    	  }
     }
     Vue.createApp(TwoWayBindingApp).mount('#roomeditor')
   }
