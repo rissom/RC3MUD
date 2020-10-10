@@ -1,33 +1,23 @@
-<<<<<<< HEAD
-
 - Sehen wer im Raum ist: Fix disconnected
 - Datenspuren Workadventure-Leute kontaktieren
 - Webformular zum Erstellen eines Raumes
 - Remote Arduino setup
 - Whitepaper zu Remote Arduino setup
 - Punkspäti
-- Sehen in welche Richtung jemand den Raum verlässt
-- Eingangsseite (html)
 - Linux-Commmandos für die Nerds ( whoami, finger, who, man, telnet?, ssh???? Warnung! )
-=======
-ToDo:
->>>>>>> ba9d07c4c32b818aef96af0dcb608a6bf4a6237f
 - Items 
 - Eventchain (Cronjobs)
 - Inventory 
 - Userverwaltung (Passwörter, Userdaten, Gruppen, eigene Description, Level, Punkte, etc)
 - NPCs
 - Aliase
-- Kampfsystem für den Keller
-- Raketenflug
-<<<<<<< HEAD
+- Kampfsystem für den Keller (Spinnen, Ratten, Axt, Besenstil)
+- Raketenflug (voll kompliziert, scheitert immer wieder, aber die Nerds drucken einfach gemeinsam wieder eine neue aus und nach 20Min geht es wieder los. NPCs treiben das Projekt voran. Tod durch: zu schnell, ersticken, Bruchlandung, keine Kommunikation mit der Bodenstation.)
 - Farben für unterschiedliche Meldungstypen
-=======
-- HTML Formular, um Räume zu erzeugen
->>>>>>> ba9d07c4c32b818aef96af0dcb608a6bf4a6237f
+- Tod: Petrus, Schach gegen den Teufel, 4 Gewinnt gegen den Tod???, 
 
 Sonstiges:
-- hosting
+- Hosting
 - Mehr Räume
 - Eintrittsspende
 
@@ -37,3 +27,4 @@ Done:
 - Eingangsseite (html)
 - Videofenster
 - Taberweiterung (Doppeltab, Vervollständigung  bis unklare Stelle bei Mehrdeutigkeit )
+- Eingangsseite (html)
