@@ -98,15 +98,17 @@ var term = new window.Terminal.Terminal();
         current_term_line = possibleVerbs[0] + " "; 
         term.write (current_term_line.slice(le));
       } else {
+        if (possibleVerbs.length>0){
           let startsWith = possibleVerbs.reduce( (x,y) => { 
             let i=0;
             for (i=0; i < Math.min( x.length, y.length ) && x[i]==y[i]; i++){}
             return x.slice(0,i);
-          })
+          })  
           term.write ( "\r\n"+possibleVerbs .join(" ") );
           prompt(term)
           term.write ( startsWith );
           current_term_line = startsWith;
+        } 
       }
       break;
     default: // Print all other characters for demo
@@ -204,6 +206,16 @@ ws.onmessage = function (message) {
   if (msg.cmd=="editroom") {
 	  document.querySelector("#terminal").classList.add("d-none");
 	  document.querySelector("#roomeditor").classList.remove("d-none");
+    var roomData = msg.data;
+    const TwoWayBindingApp = {
+      data() {
+        return {
+          "description_en" : roomData.description.en,
+          "description_de" : roomData.description.de
+        }
+      }
+    }
+    Vue.createApp(TwoWayBindingApp).mount('#roomeditor')
   }
 	
 }

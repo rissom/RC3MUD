@@ -5,6 +5,7 @@
 	href="https://unpkg.com/xterm@4.0.0/css/xterm.css" />
 <link rel="stylesheet" href="css/style.css" />
 <script src="https://unpkg.com/xterm@4.0.0/lib/xterm.js"></script>
+<script type="text/javascript" src="js/vue.global.js"></script>
 </head>
 <body style="background-color:#211c1c">
 	<div id="gamecontainer">
@@ -42,11 +43,11 @@ room:
 <b>Description</b><br/>
 EN:<br/>
 <textarea id="description" name="room_description_en" rows="10" cols="50"
-placeholder="You are in the lounge area."></textarea>
+v-model="description_en" ></textarea>
 <br />
 DE:<br/>
 <textarea id="description" name="room_description_de" rows="10" cols="50"
-placeholder="Du befindest dich in der Lounge."></textarea>
+v-model="description_de"></textarea>
 <br/>
 <br/>
 <b>Capacity</b><br/>
