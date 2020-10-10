@@ -206,27 +206,18 @@ ws.onmessage = function (message) {
   if (msg.cmd=="editroom") {
 	  document.querySelector("#terminal").classList.add("d-none");
 	  document.querySelector("#roomeditor").classList.remove("d-none");
-    var roomData = msg.data;
-    const TwoWayBindingApp = {
-      data() {
-        return {
-          "description_en" : roomData.description.en,
-          "description_de" : roomData.description.de
-        }
-      },
-      methods: {
-    	  	save_room() {
-    	    	console.log("save_room");
-    	    },
-    	    
-    	    cancel_edit() {
-    	    	console.log("cancel_edit");
-    	    	document.querySelector("#terminal").classList.remove("d-none");
-    	  	  	document.querySelector("#roomeditor").classList.add("d-none");
-    	    }
-    	  }
-    }
-    Vue.createApp(TwoWayBindingApp).mount('#roomeditor')
+	    var roomData = msg.data;
+	    window.roomeditor = Vue.createApp({
+		  template: roomeditor_template,
+		  methods: roomeditor_methods,
+		  data() {
+			  return {
+		          "description_en" : roomData.description.en,
+		          "description_de" : roomData.description.de
+		        }
+		  }
+	});
+	window.roomeditor.mount('#roomeditor');
   }
 	
 }
