@@ -178,6 +178,10 @@ ws.onmessage = function (message) {
     var wv = document.querySelector("#webview");
     wv.innerHTML = msg.data;
   }
+  if (msg.cmd=="iframe"){
+	    var wv = document.querySelector("#iframecontainer");
+	    wv.innerHTML = msg.data;
+	  }
   if (msg.cmd=="video"){
 	    var wv = document.querySelector("#videoview");
 	    if (msg.enabled) {

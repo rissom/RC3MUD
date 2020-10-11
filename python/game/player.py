@@ -147,14 +147,20 @@ class Player(object):
         else:
             actionsstring = ""
             for a in room.actions:
-                actionsstring = actionsstring + i18n(self.lang, a['description'])+"\r\n"
+                actionsstring = actionsstring + a.get_action_description(self)+"\r\n"
                 
         self.send_text("\r\n\r\n"+i18n(self.lang,room.description)+"\r\n"+actionsstring)
+        
+        if len(room.iframe_url)>7:
+            iframe = '<iframe src="'+room.iframe_url+'"></iframe>'
+        else:
+            iframe = '<iframe>'+i18n(self.lang,room.iframe_html)+'</iframe>'
         ans = {
-              "cmd": "html",
-              "data": i18n(self.lang,room.webview)
+              "cmd": "iframe",
+              "data": iframe #i18n(self.lang,room.webview)
             }
         self.wsclient.write_message(ans)
+        '''        
         if  room.videoview:
             ans = {
               "cmd": "video",
@@ -168,7 +174,7 @@ class Player(object):
               "enabled": False
             }
             self.wsclient.write_message(ans)
-            
+    '''           
     def send_other_players_in_room(self,room):
         if len(room.player)==1:
             self.send_text(i18n(self.lang, { "en": "You are here on your own...", "de": "Du bist hier ganz alleine..."}))
@@ -188,7 +194,7 @@ class Player(object):
             
     def enter_room(self, roomaction):
         
-        roomid = roomaction['roomid']
+        roomid = roomaction.data['roomid']
         newroom = Room.get_room_by_id(roomid)
         if self in self.room.player:
             self.room.player.remove(self)
@@ -198,7 +204,7 @@ class Player(object):
         # enter the room, first notification then enter
         enteraction = None
         for a in newroom.actions:
-            if 'roomid' in a and a['roomid']==self.room.roomid:
+            if 'roomid' in a.data and a.data['roomid']==self.room.roomid:
                 enteraction = a
         if enteraction is None:
             for p in newroom.player:

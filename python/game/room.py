@@ -38,7 +38,7 @@ class Room(object):
     def get_room_command_list(self,player):
         commands = []
         for a in self.actions:
-            commands.append(i18n(player.lang,a['command']))
+            commands.append(a.get_user_command(player))
         return commands
         
     def execute_action(self,player,action):
@@ -47,14 +47,13 @@ class Room(object):
         
     def parse_user_command(self, player, msg):
         for a in self.actions:
-            if msg.startswith(i18n(player.lang,a['command'])):
-                self.execute_action(player,a)
+            if a.parse_user_command(player,msg):
                 return True
         if msg.startswith("roomeditor"):
             if Area.get_area_by_id(self.areaid).are_ids_in_chain(player.admin_for_area):
                 data = { "roomid" : self.roomid,
                    "areaid": self.areaid,
-                   "actions" : self.actions,
+                   "actions" : [],
                    "name" : self.name,
                    "description" : self.description,
                    "items" : self.items,
@@ -62,24 +61,55 @@ class Room(object):
                    "webview" : self.webview,
                    "videoview" : self.videoview
                  }
+                for a in self.actions:
+                    data["actions"].append(a.toJSON())
                 ans = { "cmd": "editroom",
                        "data": data }
                 player.wsclient.write_message(ans)
                 return True
+        if msg.startswith("saveroom"):
+            room = Room(99)
+            Serializer.save_room(room)
+            return True
+        
         return False
         
     def fromJSON(self, json):
         
         self.areaid = json["areaid"]
         self.description = json["description"]
-        self.actions = json["actions"]
+        #self.actions = json["actions"]
         self.name = json["name"]
-        self.webview = json["webview"]
+        
         self.capacity = json["capacity"]
-        if "videoview" in json:
+        if "webview" in json:
+            self.webview = json["webview"]
+        else:
+            self.webview = { "en":"" }
+        if "videoview" in json and "en" in json["videoview"]:
             self.videoview = json["videoview"]
         else:
-            self.videoview = False
+            self.videoview = { "en":"" }
+        self.actions = []
+        from action.change_room import action_change_room
+        for a in json["actions"]:
+            self.actions.append(action_change_room(a))
+        
+        if "iframeurl" in json:
+            self.iframe_url=json["iframeurl"]
+        else:
+            self.iframe_url=""
+        if "iframehtml" in json:
+            self.iframe_url=json["iframehtml"]
+        else:
+            self.iframe_html='<body><div id="videoview" style="width: 400px; height: 225px;" class="">'
+            #self.iframe_html=self.iframe_html+'<iframe width="400" height="225" allow="autoplay" src="https://media.ccc.de/v/36c3-11223-opening_ceremony/oembed" frameborder="0" allowfullscreen=""></iframe>'
+            self.iframe_html=self.iframe_html+self.videoview["en"]
+            self.iframe_html=self.iframe_html+'</div><div id="webview" style="width: 400px; height: 50%;">'
+            #self.iframe_html=self.iframe_html+'<h1>Opening Ceremony</h1>bleeptrack and blinry'
+            self.iframe_html=self.iframe_html+self.webview["en"]
+            self.iframe_html=self.iframe_html+'</div></body>'
+            self.iframe_html = { "en": self.iframe_html }
         
     def toJSON(self):
         ans = { "roomid" : self.roomid,
@@ -90,7 +120,7 @@ class Room(object):
                "items" : self.items,
                "capacity" : self.capacity,
                "webview" : self.webview,
-               "videoview" : self.videoview
+               #"videoview" : self.videoview
              }
         return json.dumps(ans,indent=4).replace('\n', '\r\n')
     

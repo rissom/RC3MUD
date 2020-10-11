@@ -26,6 +26,14 @@ class Serializer(object):
             room.fromJSON(jsonobj)
         return room
     
+    def save_room(room):
+        filename = Config.workingpath+"/rooms/" + str(room.roomid)+".json"
+        roomfile = open(filename, 'w')
+        from game.room import Room
+        roomfile.write(room.toJSON())
+        roomfile.close()
+        log.debug("Serializer: room saved: id: "+str(room.roomid))
+        
     def get_area(areaid):
         filename = Config.workingpath+"/areas/" + str(areaid)+".json"
         if not os.path.exists(filename):
